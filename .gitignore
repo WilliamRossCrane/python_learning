@@ -1,19 +1,18 @@
-# Python virtual environments
+# Virtual environments
 venv/
-.env/
+.venv/
 
-# Python cache files
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# Flask / database files
+# Flask / SQLite database files
 app.db
 instance/
+*.sqlite
+*.sqlite3
 
 # macOS
 .DS_Store
-
-# VS Code
-.vscode/
