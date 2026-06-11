@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator Web</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <h1>Calculator Web</h1>
+      <p>A simple Flask calculator app</p>
+    </header>
+
+    <nav class="nav">
+      <a href="{{ url_for('index') }}">Home</a>
+    </nav>
+
+    <main class="container">{% block content %} {% endblock %}</main>
+  </body>
+</html>
