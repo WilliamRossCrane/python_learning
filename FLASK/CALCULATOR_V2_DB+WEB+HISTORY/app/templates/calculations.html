@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container">
+  <h2 id="subheader">Calculations</h2>
+
+  {% if rows %}
+  <table>
+    <thead>
+      <tr>
+        <th>Calculation ID</th>
+        <th>Number 1</th>
+        <th>Number 2</th>
+        <th>Result</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for row in rows %}
+      <tr>
+        <td>{{ row.calcID }}</td>
+        <td>{{ row.num1 }}</td>
+        <td>{{ row.num2 }}</td>
+        <td>{{ row.result }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>No calculations saved yet.</p>
+  {% endif %}
+</div>
+
+{% endblock %}
