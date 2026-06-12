@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% block content %}
+
+<form action="{{ url_for('calculate') }}" method="POST">
+  {{ form.hidden_tag() }}
+
+  <h2 id="subheader">Simple Multiplier</h2>
+
+  <p>
+    This is a simple calculator that multiplies two numbers and saves the
+    result.
+  </p>
+
+  <div class="form-group">
+    {{ form.num1.label }} {{ form.num1(size=32) }} {% for error in
+    form.num1.errors %}
+    <span class="error">[{{ error }}]</span>
+    {% endfor %}
+  </div>
+
+  <div class="form-group">
+    {{ form.num2.label }} {{ form.num2(size=32) }} {% for error in
+    form.num2.errors %}
+    <span class="error">[{{ error }}]</span>
+    {% endfor %}
+  </div>
+
+  <div class="form-group">{{ form.submit(class="btn") }}</div>
+
+  {% if result %}
+  <div class="alert">Result: {{ result }}</div>
+  {% endif %}
+</form>
+
+{% endblock %}
