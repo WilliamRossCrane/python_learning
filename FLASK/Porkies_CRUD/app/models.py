@@ -3,6 +3,8 @@ from app import db
 
 
 class Driver(db.Model):
+    __tablename__ = "drivers"
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     vehicle = db.Column(db.String(100), nullable=False)
@@ -14,6 +16,8 @@ class Driver(db.Model):
 
 
 class Order(db.Model):
+    __tablename__ = "orders"
+
     id = db.Column(db.Integer, primary_key=True)
 
     customer_name = db.Column(db.String(100), nullable=False)
@@ -25,7 +29,7 @@ class Order(db.Model):
 
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
-    driver_id = db.Column(db.Integer, db.ForeignKey("driver.id"), nullable=True)
+    driver_id = db.Column(db.Integer, db.ForeignKey("drivers.id"), nullable=True)
 
     def __repr__(self):
         return f"<Order {self.id} - {self.customer_name}>"
