@@ -1,6 +1,6 @@
 from flask import jsonify
 from app import app
-
+from app.models import Creature
 
 @app.route("/")
 def index():
@@ -18,4 +18,13 @@ def health_check():
     return jsonify({
         "status": "ok",
         "message": "CreateDex API is running."
+    })
+
+@app.route("/api/creatures", methods=["GET"])
+def get_creatures():
+    creatures = Creature.query.order_by(Creature.id).all()
+
+    return jsonify({
+        "count": len(creatures),
+        "creatures": [creature.to_dict() for creature in creatures]
     })
