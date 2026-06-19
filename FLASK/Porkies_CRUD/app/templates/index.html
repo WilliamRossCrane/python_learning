@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block body %}
+<h1>Porkies CRUD</h1>
+
+<p>Welcome to the Porkies BBQ Restaurant order system.</p>
+
+<h2>Order Summary</h2>
+
+<ul>
+  <li>Total Orders: {{ total_orders }}</li>
+  <li>Pending Orders: {{ pending_orders }}</li>
+  <li>Delivered Orders: {{ delivered_orders }}</li>
+</ul>
+
+<p>
+  <a href="{{ url_for('orders') }}">View All Orders</a>
+</p>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% block body %}
+<h1>Orders</h1>
+
+{% if orders %}
+<table border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Customer</th>
+      <th>Phone</th>
+      <th>Address</th>
+      <th>Order</th>
+      <th>Status</th>
+      <th>Driver</th>
+      <th>Created</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for order in orders %}
+    <tr>
+      <td>{{ order.id }}</td>
+      <td>{{ order.customer_name }}</td>
+      <td>{{ order.customer_phone }}</td>
+      <td>{{ order.customer_address }}</td>
+      <td>{{ order.order_details }}</td>
+      <td>{{ order.status }}</td>
+      <td>
+        {% if order.driver %} {{ order.driver.name }} {% else %} Unassigned {%
+        endif %}
+      </td>
+      <td>{{ order.created_at.strftime("%d/%m/%Y %H:%M") }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No orders yet.</p>
+{% endif %} {% endblock %}

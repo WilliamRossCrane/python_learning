@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Porkies CRUD</title>
+  </head>
+  <body>
+    <nav>
+      <a href="{{ url_for('index') }}">Home</a>
+      |
+      <a href="{{ url_for('orders') }}">Orders</a>
+    </nav>
+
+    <hr />
+
+    {% block body %} {% endblock %}
+  </body>
+</html>
