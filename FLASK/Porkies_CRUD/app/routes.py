@@ -95,3 +95,13 @@ def edit_order(order_id):
         return redirect(url_for("orders"))
 
     return render_template("editorder.html", form=form, order=order)
+
+@app.route("/orders/<int:order_id>/delete", methods=["POST"])
+def delete_order(order_id):
+    order = Order.query.get_or_404(order_id)
+
+    db.session.delete(order)
+    db.session.commit()
+
+    flash("Order deleted successfully.")
+    return redirect(url_for("orders"))
