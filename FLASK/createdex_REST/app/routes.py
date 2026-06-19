@@ -71,3 +71,25 @@ def create_creature():
         "message": "Creature created successfully.",
         "creature": creature.to_dict()
     }), 201
+
+@app.route("/api/creatures/<int:creature_id>", methods=["PUT"])
+def update_creature(creature_id):
+    creature = Creature.query.get_or_404(creature_id)
+    data = request.get_json()
+
+    if not data:
+        return jsonify({
+            "error": "No JSON data provided."
+        }), 400
+
+    creature.name = data.get("name", creature.name)
+    creature.element = data.get("element", creature.element)
+    creature.level = data.get("level", creature.level)
+    creature.rarity = data.get("rarity", creature.rarity)
+
+    db.session.commit()
+
+    return jsonify({
+        "message": "Creature updated successfully.",
+        "creature": creature.to_dict()
+    })
