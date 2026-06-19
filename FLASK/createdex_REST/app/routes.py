@@ -32,6 +32,13 @@ def get_creatures():
         "creatures": [creature.to_dict() for creature in creatures]
     })
 
+@app.route("/api/creatures/<int:creature_id>", methods=["GET"])
+def get_creature(creature_id):
+    creature = Creature.query.get_or_404(creature_id)
+
+    return jsonify({
+        "creature": creature.to_dict()
+    })
 
 @app.route("/api/creatures", methods=["POST"])
 def create_creature():
