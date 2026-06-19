@@ -1,0 +1,66 @@
+{% extends "base.html" %} {% block body %}
+<section class="card">
+  <h2>Orders</h2>
+  <p>View, edit, and delete customer orders.</p>
+
+  <a class="button" href="{{ url_for('new_order') }}">Add New Order</a>
+</section>
+
+{% if orders %}
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Customer</th>
+      <th>Phone</th>
+      <th>Address</th>
+      <th>Order</th>
+      <th>Status</th>
+      <th>Driver</th>
+      <th>Created</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for order in orders %}
+    <tr>
+      <td>{{ order.id }}</td>
+      <td>{{ order.customer_name }}</td>
+      <td>{{ order.customer_phone }}</td>
+      <td>{{ order.customer_address }}</td>
+      <td>{{ order.order_details }}</td>
+      <td>{{ order.status }}</td>
+      <td>
+        {% if order.driver %} {{ order.driver.name }} {% else %} Unassigned {%
+        endif %}
+      </td>
+      <td>{{ order.created_at.strftime("%d/%m/%Y %H:%M") }}</td>
+      <td>
+        <div class="actions">
+          <a
+            class="button secondary"
+            href="{{ url_for('edit_order', order_id=order.id) }}"
+          >
+            Edit
+          </a>
+
+          <form
+            action="{{ url_for('delete_order', order_id=order.id) }}"
+            method="POST"
+          >
+            <button class="button danger" type="submit">Delete</button>
+          </form>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="empty-state">
+  <h3>No orders yet</h3>
+  <p>Create your first Porkies order to get started.</p>
+  <a class="button" href="{{ url_for('new_order') }}">Create New Order</a>
+</div>
+{% endif %} {% endblock %}

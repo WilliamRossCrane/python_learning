@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block body %}
+<section class="card">
+  <h2>Welcome to Porkies CRUD</h2>
+  <p>
+    This app tracks customer orders for Porkies BBQ Restaurant. It demonstrates
+    the four main CRUD actions: create, read, update, and delete.
+  </p>
+
+  <a class="button" href="{{ url_for('new_order') }}">Create New Order</a>
+  <a class="button secondary" href="{{ url_for('orders') }}">View Orders</a>
+</section>
+
+<section class="summary-grid">
+  <div class="summary-box">
+    <h3>Total Orders</h3>
+    <p>{{ total_orders }}</p>
+  </div>
+
+  <div class="summary-box">
+    <h3>Pending Orders</h3>
+    <p>{{ pending_orders }}</p>
+  </div>
+
+  <div class="summary-box">
+    <h3>Delivered Orders</h3>
+    <p>{{ delivered_orders }}</p>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %} {% block body %}
+<section class="card">
+  <h2>Edit Order #{{ order.id }}</h2>
+  <p>Update the customer order details below.</p>
+
+  <form method="POST">
+    {{ form.hidden_tag() }}
+
+    <p>
+      {{ form.customer_name.label }}<br />
+      {{ form.customer_name() }}
+    </p>
+
+    <p>
+      {{ form.customer_phone.label }}<br />
+      {{ form.customer_phone() }}
+    </p>
+
+    <p>
+      {{ form.customer_address.label }}<br />
+      {{ form.customer_address() }}
+    </p>
+
+    <p>
+      {{ form.order_details.label }}<br />
+      {{ form.order_details(rows=5) }}
+    </p>
+
+    <p>
+      {{ form.status.label }}<br />
+      {{ form.status() }}
+    </p>
+
+    <p>
+      {{ form.driver_id.label }}<br />
+      {{ form.driver_id() }}
+    </p>
+
+    <p>
+      {{ form.submit(class="button") }}
+      <a class="button secondary" href="{{ url_for('orders') }}">Cancel</a>
+    </p>
+  </form>
+</section>
+{% endblock %}
