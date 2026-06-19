@@ -93,3 +93,14 @@ def update_creature(creature_id):
         "message": "Creature updated successfully.",
         "creature": creature.to_dict()
     })
+
+@app.route("/api/creatures/<int:creature_id>", methods=["DELETE"])
+def delete_creature(creature_id):
+    creature = Creature.query.get_or_404(creature_id)
+
+    db.session.delete(creature)
+    db.session.commit()
+
+    return jsonify({
+        "message": "Creature deleted successfully."
+    })
