@@ -1,6 +1,10 @@
 {% extends "base.html" %} {% block body %}
 <h1>Orders</h1>
 
+<p>
+  <a href="{{ url_for('new_order') }}">Add New Order</a>
+</p>
+
 {% if orders %}
 <table border="1" cellpadding="8">
   <thead>
@@ -13,6 +17,7 @@
       <th>Status</th>
       <th>Driver</th>
       <th>Created</th>
+      <th>Actions</th>
     </tr>
   </thead>
 
@@ -30,6 +35,9 @@
         endif %}
       </td>
       <td>{{ order.created_at.strftime("%d/%m/%Y %H:%M") }}</td>
+      <td>
+        <a href="{{ url_for('edit_order', order_id=order.id) }}">Edit</a>
+      </td>
     </tr>
     {% endfor %}
   </tbody>
