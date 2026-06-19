@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% block body %}
+<h1>New Order</h1>
+
+<form method="POST">
+  {{ form.hidden_tag() }}
+
+  <p>
+    {{ form.customer_name.label }}<br />
+    {{ form.customer_name(size=40) }}
+  </p>
+
+  <p>
+    {{ form.customer_phone.label }}<br />
+    {{ form.customer_phone(size=40) }}
+  </p>
+
+  <p>
+    {{ form.customer_address.label }}<br />
+    {{ form.customer_address(size=60) }}
+  </p>
+
+  <p>
+    {{ form.order_details.label }}<br />
+    {{ form.order_details(rows=5, cols=60) }}
+  </p>
+
+  <p>
+    {{ form.status.label }}<br />
+    {{ form.status() }}
+  </p>
+
+  <p>
+    {{ form.driver_id.label }}<br />
+    {{ form.driver_id() }}
+  </p>
+
+  <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}
