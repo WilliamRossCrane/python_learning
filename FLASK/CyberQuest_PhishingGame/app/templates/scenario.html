@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block body %}
+<section class="card">
+  <p class="progress">Scenario {{ scenario.id }} of {{ total_scenarios }}</p>
+
+  <h2>{{ scenario.title }}</h2>
+
+  <p class="topic">Topic: {{ scenario.topic }}</p>
+
+  <p class="situation">{{ scenario.situation }}</p>
+
+  <form method="POST" class="choice-list">
+    {% for choice in scenario.choices %}
+    <button
+      class="choice-button"
+      type="submit"
+      name="choice_index"
+      value="{{ loop.index0 }}"
+    >
+      {{ choice.text }}
+    </button>
+    {% endfor %}
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,2 @@
+FLASK_APP=cyberquest.py
+FLASK_DEBUG=1

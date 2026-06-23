@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CyberQuest</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body>
+    <header>
+      <h1>CyberQuest</h1>
+      <p>Phishing, passwords, privacy and smart online choices</p>
+    </header>
+
+    <nav>
+      <a href="{{ url_for('index') }}">Home</a>
+      <a href="{{ url_for('start_game') }}">Start Game</a>
+    </nav>
+
+    <main>{% block body %} {% endblock %}</main>
+  </body>
+</html>

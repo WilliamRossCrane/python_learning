@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block body %}
+<section class="card hero">
+  <h2>Can you survive the cyber traps?</h2>
+
+  <p>
+    CyberQuest is an interactive cyber safety game. Read each situation, choose
+    the safest response, and receive a final cyber safety report.
+  </p>
+
+  <a class="button" href="{{ url_for('start_game') }}">Start Game</a>
+</section>
+
+<section class="card">
+  <h2>What you will practise</h2>
+
+  <ul>
+    <li>Identifying phishing messages</li>
+    <li>Protecting MFA codes</li>
+    <li>Choosing safer passwords</li>
+    <li>Thinking about app permissions</li>
+    <li>Reducing digital footprint risks</li>
+  </ul>
+</section>
+{% endblock %}

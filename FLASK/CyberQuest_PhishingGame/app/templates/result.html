@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% block body %}
+<section class="card hero">
+  <h2>{{ rating }}</h2>
+
+  <p class="score">Your score: {{ score }} / {{ max_score }}</p>
+
+  <p>{{ advice }}</p>
+
+  <a class="button" href="{{ url_for('start_game') }}">Play Again</a>
+</section>
+
+<section class="card">
+  <h2>Key Cyber Safety Ideas</h2>
+
+  <ul>
+    <li>Phishing messages often use urgency, fear, or fake links.</li>
+    <li>MFA codes should never be shared with anyone.</li>
+    <li>Using unique passphrases helps protect different accounts.</li>
+    <li>App permissions can add to your digital footprint.</li>
+    <li>Public Wi-Fi may not always be safe for important accounts.</li>
+  </ul>
+</section>
+
+<section class="card">
+  <h2>Your Choices</h2>
+
+  {% for answer in answers %}
+  <article class="answer-card">
+    <h3>{{ answer.scenario_title }}</h3>
+    <p><strong>Topic:</strong> {{ answer.topic }}</p>
+    <p><strong>Your choice:</strong> {{ answer.choice }}</p>
+    <p><strong>Feedback:</strong> {{ answer.feedback }}</p>
+    <p><strong>Points:</strong> {{ answer.score }}</p>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}
