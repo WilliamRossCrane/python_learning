@@ -1,2 +1,0 @@
-FLASK_APP=createdex.py
-FLASK_DEBUG=1
