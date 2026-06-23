@@ -1,7 +1,10 @@
 {% extends "base.html" %} {% block body %}
 <h1>CyberQuest</h1>
 
-<p>A cyber safety decision game.</p>
+<p>
+  CyberQuest is a cyber safety decision game. Read each scenario, choose the
+  safest response, and see your final cyber safety rating.
+</p>
 
-<a href="#">Start Game</a>
+<a href="{{ url_for('start_game') }}">Start Game</a>
 {% endblock %}
