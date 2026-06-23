@@ -64,15 +64,19 @@ def result():
 
     if score >= 8:
         rating = "Cyber Guardian"
+        advice = "You made strong cyber safety decisions. Keep checking suspicious messages, protecting your accounts, and thinking carefully about your digital footprint."
     elif score >= 5:
         rating = "Cyber Apprentice"
+        advice = "You made some safe choices, but there are areas to improve. Focus on checking links, protecting MFA codes, and limiting unnecessary data sharing."
     else:
         rating = "Needs More Training"
+        advice = "You may need more practice identifying cyber risks. Remember to slow down, check before clicking, and ask for help when something seems suspicious."
 
     return render_template(
         "result.html",
         score=score,
         max_score=max_score,
         rating=rating,
+        advice=advice,
         answers=answers,
     )
