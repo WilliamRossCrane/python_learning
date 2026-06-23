@@ -1,7 +1,23 @@
 {% extends "base.html" %} {% block body %}
 <h1>Cyber Safety Report</h1>
 
-<p>Your report will appear here soon.</p>
+<h2>{{ rating }}</h2>
 
+<p>Your score: {{ score }} / {{ max_score }}</p>
+
+<h2>Your Choices</h2>
+
+{% for answer in answers %}
+<section>
+  <h3>{{ answer.scenario_title }}</h3>
+  <p><strong>Topic:</strong> {{ answer.topic }}</p>
+  <p><strong>Your choice:</strong> {{ answer.choice }}</p>
+  <p><strong>Feedback:</strong> {{ answer.feedback }}</p>
+  <p><strong>Points:</strong> {{ answer.score }}</p>
+</section>
+<hr />
+{% endfor %}
+
+<a href="{{ url_for('start_game') }}">Play Again</a>
 <a href="{{ url_for('index') }}">Back Home</a>
 {% endblock %}
