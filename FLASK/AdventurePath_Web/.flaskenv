@@ -1,2 +1,0 @@
-FLASK_APP=adventurepath.py
-FLASK_DEBUG=1
