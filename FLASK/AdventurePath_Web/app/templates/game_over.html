@@ -1,14 +1,29 @@
 {% extends "base.html" %} {% block body %}
 <h1>Game Over</h1>
 
-<p>You follow the glowing footprints deeper into the forest.</p>
+<p>Your adventure ends here.</p>
 
 <p>
-  Suddenly, the lights vanish. The trees twist around you, and the path
-  disappears.
+  You made a choice that seemed interesting, but it led you into danger. In
+  adventure stories, just like in real problem-solving, not every option leads
+  to the best outcome.
 </p>
 
-<p>Some choices look exciting, but they are not always safe.</p>
+<p>The path disappears behind you, and the world fades into darkness.</p>
 
-<a href="{{ url_for('start') }}">Try Again</a>
+<h2>Reflection</h2>
+
+<ul>
+  <li>Which choice led to this ending?</li>
+  <li>What warning signs did you notice?</li>
+  <li>What would you choose differently next time?</li>
+</ul>
+
+<p>
+  <a href="{{ url_for('start') }}">Try Again</a>
+</p>
+
+<p>
+  <a href="{{ url_for('index') }}">Back Home</a>
+</p>
 {% endblock %}
