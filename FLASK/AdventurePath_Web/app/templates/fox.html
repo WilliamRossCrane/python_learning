@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% block body %}
+<h1>The Silver-Eyed Fox</h1>
+
+<p>The fox smiles and flicks its tail.</p>
+
+<p>“Smart choice,” it says. “Not every glowing path is safe.”</p>
+
+<p>
+  The fox gives you a small bronze key and points toward the mountains. “You
+  will need this soon.”
+</p>
+
+<ul>
+  <li>
+    <a href="{{ url_for('victory') }}">Follow the fox toward the mountains</a>
+  </li>
+  <li>
+    <a href="{{ url_for('start') }}">Return to the beginning</a>
+  </li>
+</ul>
+{% endblock %}

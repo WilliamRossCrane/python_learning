@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block body %}
+<h1>Game Over</h1>
+
+<p>You follow the glowing footprints deeper into the forest.</p>
+
+<p>
+  Suddenly, the lights vanish. The trees twist around you, and the path
+  disappears.
+</p>
+
+<p>Some choices look exciting, but they are not always safe.</p>
+
+<a href="{{ url_for('start') }}">Try Again</a>
+{% endblock %}
