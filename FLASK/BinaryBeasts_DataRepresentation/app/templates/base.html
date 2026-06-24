@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>BinaryBeasts</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body>
+    <header>
+      <h1>BinaryBeasts</h1>
+      <p>Learn how computers represent data</p>
+    </header>
+
+    <nav>
+      <a href="{{ url_for('index') }}">Home</a>
+      <a href="{{ url_for('binary_converter') }}">Decimal to Binary</a>
+      <a href="{{ url_for('decimal_converter') }}">Binary to Decimal</a>
+      <a href="{{ url_for('text_binary_converter') }}">Text to Binary</a>
+      <a href="{{ url_for('rgb_lab') }}">RGB Lab</a>
+      <a href="{{ url_for('pixel_beast') }}">Pixel Beast</a>
+    </nav>
+
+    <main>{% block body %} {% endblock %}</main>
+  </body>
+</html>

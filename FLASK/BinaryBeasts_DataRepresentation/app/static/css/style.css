@@ -1,0 +1,175 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+header {
+  background: linear-gradient(135deg, #312e81, #0f766e);
+  text-align: center;
+  padding: 36px 20px;
+  border-bottom: 4px solid #38bdf8;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 46px;
+}
+
+header p {
+  margin: 10px 0 0;
+  color: #ccfbf1;
+  font-size: 18px;
+}
+
+nav {
+  background: #020617;
+  text-align: center;
+  padding: 14px;
+}
+
+nav a {
+  color: #f8fafc;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 8px 10px;
+  display: inline-block;
+}
+
+nav a:hover {
+  color: #38bdf8;
+}
+
+main {
+  width: 90%;
+  max-width: 950px;
+  margin: 36px auto;
+}
+
+main > section {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+section section {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 14px;
+  padding: 20px;
+  margin-top: 22px;
+}
+
+h2 {
+  color: #38bdf8;
+  margin-top: 0;
+  font-size: 30px;
+}
+
+h3 {
+  color: #a5f3fc;
+}
+
+p {
+  line-height: 1.6;
+  font-size: 17px;
+}
+
+ul {
+  line-height: 1.7;
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+a {
+  color: #67e8f9;
+}
+
+a:hover {
+  color: #22d3ee;
+}
+
+blockquote {
+  border-left: 5px solid #38bdf8;
+  background: #020617;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 18px;
+  color: #ccfbf1;
+}
+
+form {
+  background: #020617;
+  border: 1px solid #334155;
+  border-radius: 14px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin: 14px 0 6px;
+  color: #e0f2fe;
+}
+
+input,
+select {
+  width: 100%;
+  max-width: 360px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #475569;
+  background: #f8fafc;
+  color: #0f172a;
+  font-size: 16px;
+}
+
+button {
+  display: block;
+  margin-top: 18px;
+  background: #0891b2;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0e7490;
+}
+
+strong {
+  color: #facc15;
+}
+
+code {
+  color: #facc15;
+}
+
+div[style*="background-color"] {
+  border-radius: 8px;
+}
+
+@media (min-width: 700px) {
+  header h1 {
+    font-size: 56px;
+  }
+
+  nav a {
+    margin: 0 12px;
+  }
+}
