@@ -1,0 +1,95 @@
+{% extends "base.html" %} {% block body %}
+<section>
+  <h2>RGB Colour Lab</h2>
+
+  <p>Digital colours can be represented using RGB values.</p>
+
+  <p>
+    RGB stands for <strong>Red</strong>, <strong>Green</strong>, and
+    <strong>Blue</strong>. Each value can be between 0 and 255.
+  </p>
+
+  <form method="POST">
+    <label for="red_value">Red value:</label>
+    <input
+      type="number"
+      id="red_value"
+      name="red_value"
+      min="0"
+      max="255"
+      value="{{ red_value }}"
+      required
+    />
+
+    <label for="green_value">Green value:</label>
+    <input
+      type="number"
+      id="green_value"
+      name="green_value"
+      min="0"
+      max="255"
+      value="{{ green_value }}"
+      required
+    />
+
+    <label for="blue_value">Blue value:</label>
+    <input
+      type="number"
+      id="blue_value"
+      name="blue_value"
+      min="0"
+      max="255"
+      value="{{ blue_value }}"
+      required
+    />
+
+    <button type="submit">Create Colour</button>
+  </form>
+
+  {% if error %}
+  <p><strong>Error:</strong> {{ error }}</p>
+  {% endif %}
+
+  <section>
+    <h3>Colour Preview</h3>
+
+    <div
+      style="
+        width: 220px;
+        height: 120px;
+        border: 2px solid black;
+        background-color: {{ rgb_value }};
+      "
+    ></div>
+
+    <p>
+      RGB value:
+      <strong>{{ rgb_value }}</strong>
+    </p>
+
+    <p>
+      Hex colour code:
+      <strong>{{ hex_value }}</strong>
+    </p>
+  </section>
+
+  <section>
+    <h3>Try These Colours</h3>
+
+    <ul>
+      <li>Red: 255, Green: 0, Blue: 0</li>
+      <li>Red: 0, Green: 255, Blue: 0</li>
+      <li>Red: 0, Green: 0, Blue: 255</li>
+      <li>Red: 255, Green: 255, Blue: 0</li>
+      <li>Red: 255, Green: 255, Blue: 255</li>
+      <li>Red: 0, Green: 0, Blue: 0</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Student Reflection</h3>
+
+    <p>How can three numbers create so many different colours on a screen?</p>
+  </section>
+</section>
+{% endblock %}
