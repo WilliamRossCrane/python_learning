@@ -1,2 +1,0 @@
-FLASK_APP=binarybeasts.py
-FLASK_DEBUG=1
