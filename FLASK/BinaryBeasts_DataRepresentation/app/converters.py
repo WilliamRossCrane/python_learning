@@ -64,3 +64,22 @@ def rgb_to_hex(red, green, blue):
     Red 255, Green 0, Blue 0 becomes #FF0000.
     """
     return f"#{red:02X}{green:02X}{blue:02X}"
+
+PIXEL_COLOURS = {
+    "black": "#111827",
+    "white": "#F9FAFB",
+    "green": "#22C55E",
+    "blue": "#3B82F6",
+    "purple": "#A855F7",
+    "yellow": "#FACC15",
+    "red": "#EF4444",
+}
+
+
+def get_pixel_colour(colour_name):
+    """
+    Return the hex colour code for a pixel colour name.
+
+    If the colour is not found, return white as a safe default.
+    """
+    return PIXEL_COLOURS.get(colour_name, "#F9FAFB")
