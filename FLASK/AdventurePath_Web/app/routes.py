@@ -27,9 +27,15 @@ def fox():
     return render_template("fox.html")
 
 
+@app.route("/treasure")
+def treasure():
+    return render_template("treasure.html")
+
+
 @app.route("/game-over")
 def game_over():
     return render_template("game_over.html")
+
 
 @app.route("/victory")
 def victory():
