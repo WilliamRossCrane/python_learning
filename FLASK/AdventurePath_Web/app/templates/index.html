@@ -1,0 +1,26 @@
+{% extends "base.html" %} {% block body %}
+<section class="card hero">
+  <h2>Choose Your Path</h2>
+
+  <p>Welcome to AdventurePath, a choose-your-own-adventure Flask web game.</p>
+
+  <p>
+    You are about to enter a mysterious world where every choice changes your
+    path. Some choices lead to victory. Others lead to danger.
+  </p>
+
+  <a class="button" href="{{ url_for('start') }}">Start Adventure</a>
+</section>
+
+<section class="card">
+  <h2>What you will practise</h2>
+
+  <ul>
+    <li>Moving between pages with Flask routes</li>
+    <li>Using HTML templates</li>
+    <li>Creating links with `url_for`</li>
+    <li>Building branching story paths</li>
+    <li>Thinking about user choices and outcomes</li>
+  </ul>
+</section>
+{% endblock %}

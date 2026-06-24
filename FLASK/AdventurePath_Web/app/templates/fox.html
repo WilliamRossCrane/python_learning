@@ -1,0 +1,26 @@
+{% extends "base.html" %} {% block body %}
+<section class="card">
+  <h2>The Silver-Eyed Fox</h2>
+
+  <p>The fox smiles and flicks its tail.</p>
+
+  <p>“Smart choice,” it says. “Not every glowing path is safe.”</p>
+
+  <p>
+    The fox gives you a small bronze key and points toward the mountains. “You
+    will need this soon.”
+  </p>
+
+  <div class="choice-grid">
+    <a class="choice-card" href="{{ url_for('victory') }}">
+      <h3>Follow the Fox</h3>
+      <p>The fox leads you toward the mountain path.</p>
+    </a>
+
+    <a class="choice-card" href="{{ url_for('start') }}">
+      <h3>Return to the Beginning</h3>
+      <p>You decide to rethink your journey from the start.</p>
+    </a>
+  </div>
+</section>
+{% endblock %}

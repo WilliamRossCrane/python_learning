@@ -1,0 +1,26 @@
+{% extends "base.html" %} {% block body %}
+<section class="card">
+  <h2>The Journey Begins</h2>
+
+  <p>
+    You wake up at the edge of an ancient forest. The sky is turning orange, and
+    a cold wind moves through the trees.
+  </p>
+
+  <p>In front of you, the path splits in two directions.</p>
+
+  <div class="choice-grid">
+    <a class="choice-card" href="{{ url_for('forest') }}">
+      <h3>Enter the Forest</h3>
+      <p>The trees whisper. Something silver moves between the branches.</p>
+    </a>
+
+    <a class="choice-card" href="{{ url_for('cave') }}">
+      <h3>Explore the Cave</h3>
+      <p>A dark cave waits nearby. Something glows deep inside.</p>
+    </a>
+  </div>
+
+  <p class="hint">Choose carefully. Your adventure depends on it.</p>
+</section>
+{% endblock %}

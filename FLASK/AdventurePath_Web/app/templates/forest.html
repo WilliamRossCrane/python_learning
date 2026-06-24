@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block body %}
+<section class="card">
+  <h2>The Whispering Forest</h2>
+
+  <p>
+    You step into the forest. The trees seem to lean closer as you walk.
+    Somewhere nearby, a fox with silver eyes watches you from behind a log.
+  </p>
+
+  <p>The fox speaks in a quiet voice: “Lost, are we?”</p>
+
+  <div class="choice-grid">
+    <a class="choice-card" href="{{ url_for('fox') }}">
+      <h3>Talk to the Fox</h3>
+      <p>The fox seems strange, but it might know the forest.</p>
+    </a>
+
+    <a class="choice-card danger" href="{{ url_for('game_over') }}">
+      <h3>Follow the Glowing Footprints</h3>
+      <p>The lights are beautiful, but they lead deeper into the unknown.</p>
+    </a>
+  </div>
+</section>
+{% endblock %}

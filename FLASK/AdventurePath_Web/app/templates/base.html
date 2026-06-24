@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AdventurePath</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body>
+    <header>
+      <h1>AdventurePath</h1>
+      <p>A choose-your-own-adventure Flask web game</p>
+    </header>
+
+    <nav>
+      <a href="{{ url_for('index') }}">Home</a>
+      <a href="{{ url_for('start') }}">Start Adventure</a>
+    </nav>
+
+    <main>{% block body %} {% endblock %}</main>
+  </body>
+</html>

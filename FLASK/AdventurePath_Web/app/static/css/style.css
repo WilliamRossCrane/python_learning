@@ -1,0 +1,162 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  background: #111827;
+  color: #f9fafb;
+}
+
+header {
+  background: linear-gradient(135deg, #064e3b, #1f2937);
+  text-align: center;
+  padding: 32px 20px;
+  border-bottom: 4px solid #fbbf24;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 44px;
+}
+
+header p {
+  margin: 10px 0 0;
+  color: #d1fae5;
+}
+
+nav {
+  background: #020617;
+  text-align: center;
+  padding: 14px;
+}
+
+nav a {
+  color: #f9fafb;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 0 12px;
+}
+
+nav a:hover {
+  color: #fbbf24;
+}
+
+main {
+  width: 90%;
+  max-width: 900px;
+  margin: 36px auto;
+}
+
+.card {
+  background: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 16px;
+  padding: 30px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.hero {
+  border-color: #fbbf24;
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 32px;
+  color: #fbbf24;
+}
+
+.card p {
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+.button {
+  display: inline-block;
+  background: #d97706;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-weight: bold;
+  margin: 8px 8px 0 0;
+}
+
+.button:hover {
+  background: #b45309;
+}
+
+.button.secondary {
+  background: #4b5563;
+}
+
+.button.secondary:hover {
+  background: #374151;
+}
+
+.choice-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.choice-card {
+  display: block;
+  background: #064e3b;
+  border: 1px solid #10b981;
+  border-radius: 14px;
+  padding: 22px;
+  color: #ecfdf5;
+  text-decoration: none;
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease;
+}
+
+.choice-card:hover {
+  background: #065f46;
+  transform: translateY(-3px);
+}
+
+.choice-card h3 {
+  margin-top: 0;
+  color: #fbbf24;
+}
+
+.choice-card p {
+  margin-bottom: 0;
+}
+
+.choice-card.danger {
+  background: #7f1d1d;
+  border-color: #f87171;
+}
+
+.choice-card.danger:hover {
+  background: #991b1b;
+}
+
+.hint {
+  color: #d1d5db;
+  font-style: italic;
+}
+
+.victory {
+  border-color: #22c55e;
+}
+
+.game-over {
+  border-color: #ef4444;
+}
+
+li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+code {
+  color: #fbbf24;
+}
