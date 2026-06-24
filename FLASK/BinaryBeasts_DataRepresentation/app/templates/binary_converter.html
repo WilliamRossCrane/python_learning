@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% block body %}
+<section>
+  <h2>Decimal to Binary Converter</h2>
+
+  <p>
+    Decimal is the number system humans usually use. It uses ten digits: 0, 1,
+    2, 3, 4, 5, 6, 7, 8 and 9.
+  </p>
+
+  <p>
+    Binary is the number system computers use. It only uses two digits: 0 and 1.
+  </p>
+
+  <form method="POST">
+    <label for="decimal_number">Enter a decimal number:</label>
+    <input
+      type="number"
+      id="decimal_number"
+      name="decimal_number"
+      min="0"
+      placeholder="Example: 13"
+      required
+    />
+
+    <button type="submit">Convert to Binary</button>
+  </form>
+
+  {% if error %}
+  <p><strong>Error:</strong> {{ error }}</p>
+  {% endif %} {% if binary_result %}
+  <section>
+    <h3>Result</h3>
+
+    <p>
+      Decimal number:
+      <strong>{{ decimal_number }}</strong>
+    </p>
+
+    <p>
+      Binary value:
+      <strong>{{ binary_result }}</strong>
+    </p>
+
+    <p>
+      This means the number {{ decimal_number }} can be represented using the
+      binary pattern {{ binary_result }}.
+    </p>
+  </section>
+  {% endif %}
+
+  <section>
+    <h3>Try These</h3>
+
+    <ul>
+      <li>Convert 1</li>
+      <li>Convert 2</li>
+      <li>Convert 5</li>
+      <li>Convert 8</li>
+      <li>Convert 15</li>
+      <li>Convert 255</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Student Reflection</h3>
+
+    <p>
+      Why do you think computers use binary instead of the normal decimal number
+      system?
+    </p>
+  </section>
+</section>
+{% endblock %}
