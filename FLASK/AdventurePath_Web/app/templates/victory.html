@@ -1,31 +1,28 @@
 {% extends "base.html" %} {% block body %}
-<h1>Victory</h1>
+<section class="card victory">
+  <h2>Victory</h2>
 
-<p>You made a careful choice and found a safe path through the adventure.</p>
+  <p>You made a careful choice and found a safe path through the adventure.</p>
 
-<p>
-  Whether you followed the silver-eyed fox or used the glowing compass, you
-  reached the mountain path safely.
-</p>
+  <p>
+    Whether you followed the silver-eyed fox or used the glowing compass, you
+    reached the mountain path safely.
+  </p>
 
-<p>
-  Good adventurers do not just rush ahead. They observe, think, choose, and
-  learn from the world around them.
-</p>
+  <p>
+    Good adventurers do not just rush ahead. They observe, think, choose, and
+    learn from the world around them.
+  </p>
 
-<h2>Reflection</h2>
+  <h3>Reflection</h3>
 
-<ul>
-  <li>Which choice helped you reach this ending?</li>
-  <li>What made that choice safer?</li>
-  <li>How could a different choice have changed the story?</li>
-</ul>
+  <ul>
+    <li>Which choice helped you reach this ending?</li>
+    <li>What made that choice safer?</li>
+    <li>How could a different choice have changed the story?</li>
+  </ul>
 
-<p>
-  <a href="{{ url_for('start') }}">Play Again</a>
-</p>
-
-<p>
-  <a href="{{ url_for('index') }}">Back Home</a>
-</p>
+  <a class="button" href="{{ url_for('start') }}">Play Again</a>
+  <a class="button secondary" href="{{ url_for('index') }}">Back Home</a>
+</section>
 {% endblock %}

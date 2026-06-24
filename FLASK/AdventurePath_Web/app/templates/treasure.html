@@ -1,23 +1,28 @@
 {% extends "base.html" %} {% block body %}
-<h1>The Hidden Treasure</h1>
+<section class="card">
+  <h2>The Hidden Treasure</h2>
 
-<p>You light the torch, and the cave walls glow with golden symbols.</p>
+  <p>You light the torch, and the cave walls glow with golden symbols.</p>
 
-<p>
-  The torch reveals a safe path across the stones. At the end of the path, you
-  find an old chest covered in dust.
-</p>
+  <p>
+    The torch reveals a safe path across the stones. At the end of the path, you
+    find an old chest covered in dust.
+  </p>
 
-<p>
-  Inside the chest is a glowing compass. It points toward the mountain path.
-</p>
+  <p>
+    Inside the chest is a glowing compass. It points toward the mountain path.
+  </p>
 
-<ul>
-  <li>
-    <a href="{{ url_for('victory') }}">Follow the compass</a>
-  </li>
-  <li>
-    <a href="{{ url_for('start') }}">Return to the beginning</a>
-  </li>
-</ul>
+  <div class="choice-grid">
+    <a class="choice-card" href="{{ url_for('victory') }}">
+      <h3>Follow the Compass</h3>
+      <p>The compass pulls you toward the next stage of the adventure.</p>
+    </a>
+
+    <a class="choice-card" href="{{ url_for('start') }}">
+      <h3>Return to the Beginning</h3>
+      <p>You leave the chest behind and go back to the split path.</p>
+    </a>
+  </div>
+</section>
 {% endblock %}

@@ -1,29 +1,26 @@
 {% extends "base.html" %} {% block body %}
-<h1>Game Over</h1>
+<section class="card game-over">
+  <h2>Game Over</h2>
 
-<p>Your adventure ends here.</p>
+  <p>Your adventure ends here.</p>
 
-<p>
-  You made a choice that seemed interesting, but it led you into danger. In
-  adventure stories, just like in real problem-solving, not every option leads
-  to the best outcome.
-</p>
+  <p>
+    You made a choice that seemed interesting, but it led you into danger. In
+    adventure stories, just like in real problem-solving, not every option leads
+    to the best outcome.
+  </p>
 
-<p>The path disappears behind you, and the world fades into darkness.</p>
+  <p>The path disappears behind you, and the world fades into darkness.</p>
 
-<h2>Reflection</h2>
+  <h3>Reflection</h3>
 
-<ul>
-  <li>Which choice led to this ending?</li>
-  <li>What warning signs did you notice?</li>
-  <li>What would you choose differently next time?</li>
-</ul>
+  <ul>
+    <li>Which choice led to this ending?</li>
+    <li>What warning signs did you notice?</li>
+    <li>What would you choose differently next time?</li>
+  </ul>
 
-<p>
-  <a href="{{ url_for('start') }}">Try Again</a>
-</p>
-
-<p>
-  <a href="{{ url_for('index') }}">Back Home</a>
-</p>
+  <a class="button" href="{{ url_for('start') }}">Try Again</a>
+  <a class="button secondary" href="{{ url_for('index') }}">Back Home</a>
+</section>
 {% endblock %}

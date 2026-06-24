@@ -1,21 +1,24 @@
 {% extends "base.html" %} {% block body %}
-<h1>The Echoing Cave</h1>
+<section class="card">
+  <h2>The Echoing Cave</h2>
 
-<p>
-  You walk toward the cave. The entrance is dark, but you can hear water
-  dripping somewhere deep inside.
-</p>
+  <p>
+    You walk toward the cave. The entrance is dark, but you can hear water
+    dripping somewhere deep inside.
+  </p>
 
-<p>On the ground, you find an old torch and a strange stone door.</p>
+  <p>On the ground, you find an old torch and a strange stone door.</p>
 
-<ul>
-  <li>
-    <a href="{{ url_for('treasure') }}">Light the torch</a>
-  </li>
-  <li>
-    <a href="{{ url_for('game_over') }}">Open the stone door</a>
-  </li>
-</ul>
+  <div class="choice-grid">
+    <a class="choice-card" href="{{ url_for('treasure') }}">
+      <h3>Light the Torch</h3>
+      <p>The torch could help you see what is hidden in the darkness.</p>
+    </a>
 
-<p>The cave feels ancient, and not completely empty.</p>
+    <a class="choice-card danger" href="{{ url_for('game_over') }}">
+      <h3>Open the Stone Door</h3>
+      <p>The door has no handle, only scratch marks around the edges.</p>
+    </a>
+  </div>
+</section>
 {% endblock %}
