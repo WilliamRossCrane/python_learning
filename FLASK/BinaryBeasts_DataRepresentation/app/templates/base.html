@@ -6,6 +6,15 @@
   </head>
 
   <body>
-    {% block body %} {% endblock %}
+    <header>
+      <h1>BinaryBeasts</h1>
+      <p>Learn how computers represent data</p>
+    </header>
+
+    <nav>
+      <a href="{{ url_for('index') }}">Home</a>
+    </nav>
+
+    <main>{% block body %} {% endblock %}</main>
   </body>
 </html>
