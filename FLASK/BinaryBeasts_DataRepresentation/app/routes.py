@@ -1,6 +1,6 @@
 from flask import render_template, request
 from app import app
-from app.converters import decimal_to_binary, binary_to_decimal
+from app.converters import decimal_to_binary, binary_to_decimal, text_to_binary
 
 
 @app.route("/")
@@ -52,5 +52,27 @@ def decimal_converter():
         "decimal_converter.html",
         binary_value=binary_value,
         decimal_result=decimal_result,
+        error=error,
+    )
+
+
+@app.route("/text-to-binary", methods=["GET", "POST"])
+def text_binary_converter():
+    text_value = None
+    binary_result = None
+    error = None
+
+    if request.method == "POST":
+        text_value = request.form.get("text_value", "").strip()
+
+        try:
+            binary_result = text_to_binary(text_value)
+        except ValueError as message:
+            error = message
+
+    return render_template(
+        "text_to_binary.html",
+        text_value=text_value,
+        binary_result=binary_result,
         error=error,
     )

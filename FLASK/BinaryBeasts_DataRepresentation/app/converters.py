@@ -25,3 +25,21 @@ def binary_to_decimal(binary_string):
             raise ValueError("Binary values can only contain 0 and 1.")
 
     return int(binary_string, 2)
+
+def text_to_binary(text):
+    """
+    Convert text into binary.
+
+    Each character is turned into a number using ord().
+    That number is then converted into an 8-bit binary value.
+    """
+    if text == "":
+        raise ValueError("Text cannot be empty.")
+
+    binary_letters = []
+
+    for character in text:
+        binary_value = format(ord(character), "08b")
+        binary_letters.append(binary_value)
+
+    return " ".join(binary_letters)

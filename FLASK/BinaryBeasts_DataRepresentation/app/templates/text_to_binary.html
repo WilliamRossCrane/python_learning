@@ -1,0 +1,71 @@
+{% extends "base.html" %} {% block body %}
+<section>
+  <h2>Text to Binary Converter</h2>
+
+  <p>
+    Computers do not store letters exactly the way humans see them. Each
+    character can be represented by a number, and that number can be converted
+    into binary.
+  </p>
+
+  <p>
+    For example, the letter <strong>A</strong> can be represented by the number
+    <strong>65</strong>, which can then be represented in binary as
+    <strong>01000001</strong>.
+  </p>
+
+  <form method="POST">
+    <label for="text_value">Enter some text:</label>
+    <input
+      type="text"
+      id="text_value"
+      name="text_value"
+      placeholder="Example: Cat"
+      required
+    />
+
+    <button type="submit">Convert Text to Binary</button>
+  </form>
+
+  {% if error %}
+  <p><strong>Error:</strong> {{ error }}</p>
+  {% endif %} {% if binary_result %}
+  <section>
+    <h3>Result</h3>
+
+    <p>
+      Text:
+      <strong>{{ text_value }}</strong>
+    </p>
+
+    <p>Binary:</p>
+
+    <p>
+      <strong>{{ binary_result }}</strong>
+    </p>
+
+    <p>Each group of 8 bits represents one character from the text.</p>
+  </section>
+  {% endif %}
+
+  <section>
+    <h3>Try These</h3>
+
+    <ul>
+      <li>Convert A</li>
+      <li>Convert Cat</li>
+      <li>Convert Hello</li>
+      <li>Convert Beast</li>
+      <li>Convert your name</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Student Reflection</h3>
+
+    <p>
+      Why might computers need a system for representing letters as numbers?
+    </p>
+  </section>
+</section>
+{% endblock %}
