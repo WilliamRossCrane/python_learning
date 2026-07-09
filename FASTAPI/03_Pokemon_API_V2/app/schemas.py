@@ -32,3 +32,25 @@ class Pokemon(BaseModel):
     sprites: PokemonSprites
     is_legendary: bool = False
     is_mythical: bool = False
+
+
+# This is the smaller version used in the list route.
+# Public APIs often return summaries first,
+# then users can request the full detail route if needed.
+
+class PokemonSummary(BaseModel):
+    dex_number: int
+    name: str
+    slug: str
+    types: list[str]
+    detail_url: str
+
+
+# This is the full response shape for the list route.
+# It includes pagination information and a list of results.
+
+class PokemonListResponse(BaseModel):
+    count: int
+    limit: int
+    offset: int
+    results: list[PokemonSummary]
