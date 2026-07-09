@@ -168,6 +168,25 @@ def get_pokemon_stats():
         "type_counts": type_counts,
     }
 
+# This route returns the available Pokemon types.
+# It uses the PokemonType enum to build the list.
+# This helps users know what type values are allowed.
+
+@app.get("/pokemon/types")
+def get_available_pokemon_types():
+
+    available_types = []
+
+    for pokemon_type in PokemonType:
+        available_types.append(pokemon_type.value)
+
+    return {
+        "available_types": available_types,
+    }
+
+
+# Test this route:
+# curl -X GET "http://127.0.0.1:8000/pokemon/types"
 
 # This route returns one Pokemon by ID.
 
