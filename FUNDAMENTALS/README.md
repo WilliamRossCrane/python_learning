@@ -1,63 +1,64 @@
 ````markdown
 # Python Fundamentals
 
-This folder is for learning the basics of Python.
+This folder is for learning basic Python.
 
-The goal is simple:
-
-- write small programs
-- run them in the terminal
-- read the output
-- fix mistakes
-- practise one idea at a time
-
-Python is used for apps, games, websites, data, automation, AI, school projects, and tools that save time.
-
----
-
-## How To Open The Terminal
-
-In VS Code:
-
-1. Open the project folder.
-2. Click **Terminal** in the top menu.
-3. Click **New Terminal**.
-
-The terminal is where we run Python commands.
-
----
-
-## How To Run A Python File
-
-Most projects have a file called:
+These projects use simple Python files like:
 
 ```text
 main.py
 ```
-````
 
-To run it, use:
+No web apps.  
+No servers.  
+No extra packages.
 
-```bash
-python3 main.py
-```
-
-Example:
-
-```bash
-cd FUNDAMENTALS/01_hello_python
-python3 main.py
-```
-
-If it works, you will see output in the terminal.
-
-If something is wrong, Python will show an error message.
-
-Errors are normal. They help you find what to fix.
+Just beginner Python practice.
 
 ---
 
-## Basic Python Syntax
+## What You Will Learn
+
+These projects practise:
+
+- `print()`
+- comments
+- variables
+- strings
+- numbers
+- input
+- if statements
+- lists
+- loops
+- dictionaries
+- functions
+- debugging
+
+---
+
+## How Python Works
+
+Python reads code from top to bottom.
+
+Example:
+
+```python
+print("Hello")
+print("Welcome to Python")
+print("This line runs last")
+```
+
+Output:
+
+```text
+Hello
+Welcome to Python
+This line runs last
+```
+
+---
+
+## Basic Syntax
 
 ### Print
 
@@ -71,7 +72,7 @@ print("Hello, Python!")
 
 ### Comments
 
-Comments are notes for humans.
+Comments explain code.
 
 Python ignores comments when the program runs.
 
@@ -85,7 +86,7 @@ print("This line runs.")
 
 ### Variables
 
-A variable stores information.
+Variables store information.
 
 ```python
 name = "Alex"
@@ -113,7 +114,7 @@ print(subject)
 
 ### Numbers
 
-Python can use numbers.
+Python can use whole numbers and decimal numbers.
 
 ```python
 score = 10
@@ -146,7 +147,7 @@ print("Hello, " + name)
 
 Input starts as text.
 
-Use `int()` when you need a whole number.
+Use `int()` for whole numbers:
 
 ```python
 age = int(input("How old are you? "))
@@ -154,7 +155,7 @@ age = int(input("How old are you? "))
 print(age + 1)
 ```
 
-Use `float()` when you need a decimal number.
+Use `float()` for decimal numbers:
 
 ```python
 price = float(input("Enter a price: "))
@@ -192,39 +193,6 @@ else:
 
 ---
 
-### Comparison Operators
-
-Comparison operators compare values.
-
-```text
-==   equal to
-!=   not equal to
->    greater than
-<    less than
->=   greater than or equal to
-<=   less than or equal to
-```
-
-Example:
-
-```python
-password = "dragon"
-
-if password == "dragon":
-    print("Access granted.")
-else:
-    print("Access denied.")
-```
-
-Important:
-
-```text
-=   stores a value
-==  checks if two values are equal
-```
-
----
-
 ### Lists
 
 A list stores multiple items.
@@ -252,8 +220,6 @@ games = ["Minecraft", "Pokemon", "Mario Kart"]
 for game in games:
     print(game)
 ```
-
-This prints every item in the list.
 
 ---
 
@@ -286,11 +252,9 @@ def say_hello():
 say_hello()
 ```
 
-Functions help keep code organised.
-
 ---
 
-## Common Beginner Mistakes
+## Common Mistakes
 
 Missing quotation marks:
 
@@ -337,26 +301,12 @@ if password == "dragon":
     print("Access granted.")
 ```
 
----
-
-## Debugging
-
-Debugging means finding and fixing mistakes.
-
-When something breaks:
-
-1. Read the error message.
-2. Check the line number.
-3. Look for spelling mistakes.
-4. Check brackets and quotation marks.
-5. Fix one thing.
-6. Run the program again.
+`=` stores a value.  
+`==` checks if two values are equal.
 
 ---
 
 ## Learning Rule
-
-Do not try to learn everything at once.
 
 Learn one idea.
 
@@ -371,7 +321,4 @@ Fix it.
 Run it again.
 
 That is coding.
-
-```
-
-```
+````
