@@ -57,6 +57,20 @@ pokemon: list[Pokemon] = [
 ]
 
 
+# This helper function finds the position of a Pokemon in the list.
+# It returns the index if the Pokemon exists.
+# It returns None if the Pokemon does not exist.
+
+def find_pokemon_index_by_id(pokemon_id: int) -> int | None:
+
+    for index, single_pokemon in enumerate(pokemon):
+
+        if single_pokemon.id == pokemon_id:
+            return index
+
+    return None
+
+
 @app.get("/")
 def root():
     return {
@@ -88,12 +102,7 @@ def get_all_pokemon(
     pokemon_name: str | None = None,
 ):
 
-    # Start with the full Pokemon list.
-    # Then we filter it step by step.
-
     results = pokemon
-
-    # Filter by type if pokemon_type was provided.
 
     if pokemon_type is not None:
 
@@ -105,10 +114,6 @@ def get_all_pokemon(
                 filtered_by_type.append(single_pokemon)
 
         results = filtered_by_type
-
-    # Search by name if pokemon_name was provided.
-    # This uses "in" so partial searches work.
-    # Example: "char" will match "Charmander".
 
     if pokemon_name is not None:
 
@@ -129,12 +134,12 @@ def get_all_pokemon(
 @app.get("/pokemon/{pokemon_id}", response_model=Pokemon)
 def get_pokemon_by_id(pokemon_id: int):
 
-    for single_pokemon in pokemon:
+    pokemon_index = find_pokemon_index_by_id(pokemon_id)
 
-        if single_pokemon.id == pokemon_id:
-            return single_pokemon
+    if pokemon_index is None:
+        raise HTTPException(status_code=404, detail="Pokemon not found")
 
-    raise HTTPException(status_code=404, detail="Pokemon not found")
+    return pokemon[pokemon_index]
 
 
 # This route creates a new Pokemon.
@@ -166,60 +171,58 @@ def create_pokemon(new_pokemon: PokemonCreate):
 @app.put("/pokemon/{pokemon_id}", response_model=Pokemon)
 def update_pokemon(pokemon_id: int, updated_pokemon: PokemonUpdate):
 
-    for index, single_pokemon in enumerate(pokemon):
+    pokemon_index = find_pokemon_index_by_id(pokemon_id)
 
-        if single_pokemon.id == pokemon_id:
+    if pokemon_index is None:
+        raise HTTPException(status_code=404, detail="Pokemon not found")
 
-            pokemon_to_update = Pokemon(
-                id=pokemon_id,
-                name=updated_pokemon.name,
-                type=updated_pokemon.type,
-                level=updated_pokemon.level,
-            )
+    pokemon_to_update = Pokemon(
+        id=pokemon_id,
+        name=updated_pokemon.name,
+        type=updated_pokemon.type,
+        level=updated_pokemon.level,
+    )
 
-            pokemon[index] = pokemon_to_update
+    pokemon[pokemon_index] = pokemon_to_update
 
-            return pokemon_to_update
-
-    raise HTTPException(status_code=404, detail="Pokemon not found")
+    return pokemon_to_update
 
 
 # This route deletes an existing Pokemon.
 # DELETE means the user wants to remove data from the API.
-# The Pokemon ID comes from the URL.
 
 @app.delete("/pokemon/{pokemon_id}")
 def delete_pokemon(pokemon_id: int):
 
-    for index, single_pokemon in enumerate(pokemon):
+    pokemon_index = find_pokemon_index_by_id(pokemon_id)
 
-        if single_pokemon.id == pokemon_id:
+    if pokemon_index is None:
+        raise HTTPException(status_code=404, detail="Pokemon not found")
 
-            # pop() removes an item from a list.
-            # We use the index to remove the correct Pokemon.
+    deleted_pokemon = pokemon.pop(pokemon_index)
 
-            deleted_pokemon = pokemon.pop(index)
-
-            return {
-                "message": f"{deleted_pokemon.name} was deleted.",
-                "deleted_pokemon": deleted_pokemon,
-            }
-
-    raise HTTPException(status_code=404, detail="Pokemon not found")
+    return {
+        "message": f"{deleted_pokemon.name} was deleted.",
+        "deleted_pokemon": deleted_pokemon,
+    }
 
 
-# Test the create route:
+# Test create:
 #
 # curl -X POST "http://127.0.0.1:8000/pokemon" \
 #      -H "Content-Type: application/json" \
 #      -d '{"name": "Pikachu", "type": "Electric", "level": 7}'
 #
-# Test the update route:
+# Test get by ID:
 #
-# curl -X PUT "http://127.0.0.1:8000/pokemon/4" \
+# curl -X GET "http://127.0.0.1:8000/pokemon/1"
+#
+# Test update:
+#
+# curl -X PUT "http://127.0.0.1:8000/pokemon/1" \
 #      -H "Content-Type: application/json" \
-#      -d '{"name": "Raichu", "type": "Electric", "level": 22}'
+#      -d '{"name": "Ivysaur", "type": "Grass", "level": 16}'
 #
-# Test the delete route:
+# Test delete:
 #
 # curl -X DELETE "http://127.0.0.1:8000/pokemon/1"
