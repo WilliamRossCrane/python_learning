@@ -2,7 +2,7 @@
 # This is a beginner FastAPI project.
 # The goal is to learn how APIs return data.
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel
 
 
@@ -18,11 +18,7 @@ app = FastAPI(
 
 
 # A model describes what data should look like.
-# This Pokemon model says every Pokemon should have:
-# - id: a whole number
-# - name: text
-# - type: text
-# - level: a whole number
+# This Pokemon model is used when the API returns Pokemon data.
 
 class Pokemon(BaseModel):
     id: int
@@ -31,8 +27,18 @@ class Pokemon(BaseModel):
     level: int
 
 
+# This model is used when someone creates a new Pokemon.
+# The user does not need to send an ID.
+# The API will create the ID automatically.
+
+class PokemonCreate(BaseModel):
+    name: str
+    type: str
+    level: int
+
+
 # This list is our temporary Pokemon data.
-# Each Pokemon now uses the Pokemon model instead of a plain dictionary.
+# Each Pokemon uses the Pokemon model.
 
 pokemon: list[Pokemon] = [
     Pokemon(id=1, name="Bulbasaur", type="Grass", level=5),
@@ -57,35 +63,62 @@ def health_check():
     }
 
 
-# response_model tells FastAPI what shape the response should have.
-# This route returns a list of Pokemon.
+# This route returns all Pokemon.
 
 @app.get("/pokemon", response_model=list[Pokemon])
 def get_all_pokemon():
     return pokemon
 
 
-# Test this route:
-# curl -X GET "http://127.0.0.1:8000/pokemon"
-
-
 # This route returns one Pokemon by ID.
-# {pokemon_id} is a path parameter.
 
 @app.get("/pokemon/{pokemon_id}", response_model=Pokemon)
 def get_pokemon_by_id(pokemon_id: int):
 
-    # Loop through each Pokemon in the list.
     for single_pokemon in pokemon:
 
-        # Because we are using a model, we use dot notation.
-        # Example: single_pokemon.id
         if single_pokemon.id == pokemon_id:
             return single_pokemon
 
-    # If no Pokemon was found, return a 404 error.
     raise HTTPException(status_code=404, detail="Pokemon not found")
 
 
-# Test this route:
-# curl -X GET "http://127.0.0.1:8000/pokemon/1"
+# This route creates a new Pokemon.
+# POST means the user is sending data to the API.
+# status_code=201 means something new was created.
+
+@app.post("/pokemon", response_model=Pokemon, status_code=status.HTTP_201_CREATED)
+def create_pokemon(new_pokemon: PokemonCreate):
+
+    # Create a new ID.
+    # If the list has Pokemon, add 1 to the last Pokemon ID.
+    # If the list is empty, start at 1.
+
+    if pokemon:
+        new_id = pokemon[-1].id + 1
+    else:
+        new_id = 1
+
+    # Create the new Pokemon using the Pokemon model.
+
+    pokemon_to_add = Pokemon(
+        id=new_id,
+        name=new_pokemon.name,
+        type=new_pokemon.type,
+        level=new_pokemon.level,
+    )
+
+    # Add the new Pokemon to the list.
+
+    pokemon.append(pokemon_to_add)
+
+    # Return the new Pokemon.
+
+    return pokemon_to_add
+
+
+# Test this POST route:
+#
+# curl -X POST "http://127.0.0.1:8000/pokemon" \
+#      -H "Content-Type: application/json" \
+#      -d '{"name": "Pikachu", "type": "Electric", "level": 7}'
