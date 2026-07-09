@@ -74,10 +74,32 @@ def health_check():
 
 
 # This route returns all Pokemon.
+# It can also filter Pokemon by type using a query parameter.
+#
+# Example:
+# /pokemon
+# /pokemon?pokemon_type=Fire
 
 @app.get("/pokemon", response_model=list[Pokemon])
-def get_all_pokemon():
-    return pokemon
+def get_all_pokemon(pokemon_type: str | None = None):
+
+    # If no type is provided, return every Pokemon.
+
+    if pokemon_type is None:
+        return pokemon
+
+    # If a type is provided, filter the list.
+    # lower() makes the search case-insensitive.
+    # This means "fire", "Fire", and "FIRE" all work.
+
+    filtered_pokemon = []
+
+    for single_pokemon in pokemon:
+
+        if single_pokemon.type.lower() == pokemon_type.lower():
+            filtered_pokemon.append(single_pokemon)
+
+    return filtered_pokemon
 
 
 # This route returns one Pokemon by ID.
