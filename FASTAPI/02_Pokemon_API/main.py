@@ -129,17 +129,31 @@ def get_all_pokemon(
     return results
 
 
-# This route returns one Pokemon by ID.
+# This route returns simple stats about the Pokemon list.
+# It calculates:
+# - how many Pokemon are in the API
+# - how many Pokemon there are for each type
 
-@app.get("/pokemon/{pokemon_id}", response_model=Pokemon)
-def get_pokemon_by_id(pokemon_id: int):
+@app.get("/pokemon/stats")
+def get_pokemon_stats():
 
-    pokemon_index = find_pokemon_index_by_id(pokemon_id)
+    type_counts = {}
 
-    if pokemon_index is None:
-        raise HTTPException(status_code=404, detail="Pokemon not found")
+    for single_pokemon in pokemon:
 
-    return pokemon[pokemon_index]
+        if single_pokemon.type in type_counts:
+            type_counts[single_pokemon.type] += 1
+        else:
+            type_counts[single_pokemon.type] = 1
+
+    return {
+        "total_pokemon": len(pokemon),
+        "type_counts": type_counts,
+    }
+
+
+# Test this route:
+# curl -X GET "http://127.0.0.1:8000/pokemon/stats"
 
 
 # This route creates a new Pokemon.
