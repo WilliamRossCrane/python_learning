@@ -118,15 +118,9 @@ def create_pokemon(new_pokemon: PokemonCreate):
 
 # This route updates an existing Pokemon.
 # PUT means the user is replacing existing data.
-# The Pokemon ID comes from the URL.
-# The new Pokemon details come from the JSON body.
 
 @app.put("/pokemon/{pokemon_id}", response_model=Pokemon)
 def update_pokemon(pokemon_id: int, updated_pokemon: PokemonUpdate):
-
-    # enumerate() gives us both:
-    # - the position in the list
-    # - the Pokemon at that position
 
     for index, single_pokemon in enumerate(pokemon):
 
@@ -146,6 +140,30 @@ def update_pokemon(pokemon_id: int, updated_pokemon: PokemonUpdate):
     raise HTTPException(status_code=404, detail="Pokemon not found")
 
 
+# This route deletes an existing Pokemon.
+# DELETE means the user wants to remove data from the API.
+# The Pokemon ID comes from the URL.
+
+@app.delete("/pokemon/{pokemon_id}")
+def delete_pokemon(pokemon_id: int):
+
+    for index, single_pokemon in enumerate(pokemon):
+
+        if single_pokemon.id == pokemon_id:
+
+            # pop() removes an item from a list.
+            # We use the index to remove the correct Pokemon.
+
+            deleted_pokemon = pokemon.pop(index)
+
+            return {
+                "message": f"{deleted_pokemon.name} was deleted.",
+                "deleted_pokemon": deleted_pokemon,
+            }
+
+    raise HTTPException(status_code=404, detail="Pokemon not found")
+
+
 # Test the create route:
 #
 # curl -X POST "http://127.0.0.1:8000/pokemon" \
@@ -157,3 +175,7 @@ def update_pokemon(pokemon_id: int, updated_pokemon: PokemonUpdate):
 # curl -X PUT "http://127.0.0.1:8000/pokemon/4" \
 #      -H "Content-Type: application/json" \
 #      -d '{"name": "Raichu", "type": "Electric", "level": 22}'
+#
+# Test the delete route:
+#
+# curl -X DELETE "http://127.0.0.1:8000/pokemon/1"
