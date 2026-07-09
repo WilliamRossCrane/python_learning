@@ -3,6 +3,7 @@
 # The goal is to learn how APIs return data.
 
 from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 
 
 # Create the FastAPI app.
@@ -16,29 +17,27 @@ app = FastAPI(
 )
 
 
-# This list is our temporary Pokemon data.
-# Each Pokemon is stored as a dictionary.
-# A dictionary stores information using labels called keys.
+# A model describes what data should look like.
+# This Pokemon model says every Pokemon should have:
+# - id: a whole number
+# - name: text
+# - type: text
+# - level: a whole number
 
-pokemon = [
-    {
-        "id": 1,
-        "name": "Bulbasaur",
-        "type": "Grass",
-        "level": 5,
-    },
-    {
-        "id": 2,
-        "name": "Charmander",
-        "type": "Fire",
-        "level": 5,
-    },
-    {
-        "id": 3,
-        "name": "Squirtle",
-        "type": "Water",
-        "level": 5,
-    },
+class Pokemon(BaseModel):
+    id: int
+    name: str
+    type: str
+    level: int
+
+
+# This list is our temporary Pokemon data.
+# Each Pokemon now uses the Pokemon model instead of a plain dictionary.
+
+pokemon: list[Pokemon] = [
+    Pokemon(id=1, name="Bulbasaur", type="Grass", level=5),
+    Pokemon(id=2, name="Charmander", type="Fire", level=5),
+    Pokemon(id=3, name="Squirtle", type="Water", level=5),
 ]
 
 
@@ -58,42 +57,35 @@ def health_check():
     }
 
 
-# This route returns all Pokemon.
-# GET means the user is asking to read data.
+# response_model tells FastAPI what shape the response should have.
+# This route returns a list of Pokemon.
 
-@app.get("/pokemon")
+@app.get("/pokemon", response_model=list[Pokemon])
 def get_all_pokemon():
     return pokemon
 
 
-# Test this route in the browser:
-# http://127.0.0.1:8000/pokemon
-#
-# Or test it in the terminal:
+# Test this route:
 # curl -X GET "http://127.0.0.1:8000/pokemon"
 
 
 # This route returns one Pokemon by ID.
 # {pokemon_id} is a path parameter.
-# A path parameter gets a value from the URL.
 
-@app.get("/pokemon/{pokemon_id}")
+@app.get("/pokemon/{pokemon_id}", response_model=Pokemon)
 def get_pokemon_by_id(pokemon_id: int):
 
     # Loop through each Pokemon in the list.
     for single_pokemon in pokemon:
 
-        # Check if the Pokemon ID matches the ID from the URL.
-        if single_pokemon["id"] == pokemon_id:
+        # Because we are using a model, we use dot notation.
+        # Example: single_pokemon.id
+        if single_pokemon.id == pokemon_id:
             return single_pokemon
 
     # If no Pokemon was found, return a 404 error.
-    # 404 means "not found".
     raise HTTPException(status_code=404, detail="Pokemon not found")
 
 
-# Test this route in the browser:
-# http://127.0.0.1:8000/pokemon/1
-#
-# Or test it in the terminal:
+# Test this route:
 # curl -X GET "http://127.0.0.1:8000/pokemon/1"
