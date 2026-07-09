@@ -2,7 +2,7 @@
 # This is a beginner FastAPI project.
 # The goal is to learn how APIs return data.
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 
 
 # Create the FastAPI app.
@@ -60,7 +60,6 @@ def health_check():
 
 # This route returns all Pokemon.
 # GET means the user is asking to read data.
-# FastAPI automatically turns the Python list into JSON.
 
 @app.get("/pokemon")
 def get_all_pokemon():
@@ -72,3 +71,29 @@ def get_all_pokemon():
 #
 # Or test it in the terminal:
 # curl -X GET "http://127.0.0.1:8000/pokemon"
+
+
+# This route returns one Pokemon by ID.
+# {pokemon_id} is a path parameter.
+# A path parameter gets a value from the URL.
+
+@app.get("/pokemon/{pokemon_id}")
+def get_pokemon_by_id(pokemon_id: int):
+
+    # Loop through each Pokemon in the list.
+    for single_pokemon in pokemon:
+
+        # Check if the Pokemon ID matches the ID from the URL.
+        if single_pokemon["id"] == pokemon_id:
+            return single_pokemon
+
+    # If no Pokemon was found, return a 404 error.
+    # 404 means "not found".
+    raise HTTPException(status_code=404, detail="Pokemon not found")
+
+
+# Test this route in the browser:
+# http://127.0.0.1:8000/pokemon/1
+#
+# Or test it in the terminal:
+# curl -X GET "http://127.0.0.1:8000/pokemon/1"
