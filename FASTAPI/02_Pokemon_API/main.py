@@ -2,6 +2,8 @@
 # This is a beginner FastAPI project.
 # The goal is to learn how APIs return data.
 
+from enum import Enum
+
 from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel, Field
 
@@ -17,13 +19,26 @@ app = FastAPI(
 )
 
 
+# An Enum is a list of allowed choices.
+# This helps stop users from entering random Pokemon types.
+# Example: "Fire" is allowed, but "Banana" is not.
+
+class PokemonType(str, Enum):
+    GRASS = "Grass"
+    FIRE = "Fire"
+    WATER = "Water"
+    ELECTRIC = "Electric"
+    NORMAL = "Normal"
+    PSYCHIC = "Psychic"
+
+
 # A model describes what data should look like.
 # This Pokemon model is used when the API returns Pokemon data.
 
 class Pokemon(BaseModel):
     id: int
     name: str = Field(..., min_length=1, max_length=30)
-    type: str = Field(..., min_length=3, max_length=20)
+    type: PokemonType
     level: int = Field(..., ge=1, le=100)
 
 
@@ -33,7 +48,7 @@ class Pokemon(BaseModel):
 
 class PokemonCreate(BaseModel):
     name: str = Field(..., min_length=1, max_length=30)
-    type: str = Field(..., min_length=3, max_length=20)
+    type: PokemonType
     level: int = Field(..., ge=1, le=100)
 
 
@@ -43,7 +58,7 @@ class PokemonCreate(BaseModel):
 
 class PokemonUpdate(BaseModel):
     name: str = Field(..., min_length=1, max_length=30)
-    type: str = Field(..., min_length=3, max_length=20)
+    type: PokemonType
     level: int = Field(..., ge=1, le=100)
 
 
@@ -51,9 +66,9 @@ class PokemonUpdate(BaseModel):
 # Each Pokemon uses the Pokemon model.
 
 pokemon: list[Pokemon] = [
-    Pokemon(id=1, name="Bulbasaur", type="Grass", level=5),
-    Pokemon(id=2, name="Charmander", type="Fire", level=5),
-    Pokemon(id=3, name="Squirtle", type="Water", level=5),
+    Pokemon(id=1, name="Bulbasaur", type=PokemonType.GRASS, level=5),
+    Pokemon(id=2, name="Charmander", type=PokemonType.FIRE, level=5),
+    Pokemon(id=3, name="Squirtle", type=PokemonType.WATER, level=5),
 ]
 
 
@@ -98,7 +113,7 @@ def health_check():
 
 @app.get("/pokemon", response_model=list[Pokemon])
 def get_all_pokemon(
-    pokemon_type: str | None = None,
+    pokemon_type: PokemonType | None = None,
     pokemon_name: str | None = None,
 ):
 
@@ -110,7 +125,7 @@ def get_all_pokemon(
 
         for single_pokemon in results:
 
-            if single_pokemon.type.lower() == pokemon_type.lower():
+            if single_pokemon.type == pokemon_type:
                 filtered_by_type.append(single_pokemon)
 
         results = filtered_by_type
@@ -141,10 +156,12 @@ def get_pokemon_stats():
 
     for single_pokemon in pokemon:
 
-        if single_pokemon.type in type_counts:
-            type_counts[single_pokemon.type] += 1
+        type_name = single_pokemon.type.value
+
+        if type_name in type_counts:
+            type_counts[type_name] += 1
         else:
-            type_counts[single_pokemon.type] = 1
+            type_counts[type_name] = 1
 
     return {
         "total_pokemon": len(pokemon),
@@ -152,8 +169,17 @@ def get_pokemon_stats():
     }
 
 
-# Test this route:
-# curl -X GET "http://127.0.0.1:8000/pokemon/stats"
+# This route returns one Pokemon by ID.
+
+@app.get("/pokemon/{pokemon_id}", response_model=Pokemon)
+def get_pokemon_by_id(pokemon_id: int):
+
+    pokemon_index = find_pokemon_index_by_id(pokemon_id)
+
+    if pokemon_index is None:
+        raise HTTPException(status_code=404, detail="Pokemon not found")
+
+    return pokemon[pokemon_index]
 
 
 # This route creates a new Pokemon.
@@ -221,22 +247,14 @@ def delete_pokemon(pokemon_id: int):
     }
 
 
-# Test create:
+# Test valid create:
 #
 # curl -X POST "http://127.0.0.1:8000/pokemon" \
 #      -H "Content-Type: application/json" \
 #      -d '{"name": "Pikachu", "type": "Electric", "level": 7}'
 #
-# Test get by ID:
+# Test invalid create:
 #
-# curl -X GET "http://127.0.0.1:8000/pokemon/1"
-#
-# Test update:
-#
-# curl -X PUT "http://127.0.0.1:8000/pokemon/1" \
+# curl -X POST "http://127.0.0.1:8000/pokemon" \
 #      -H "Content-Type: application/json" \
-#      -d '{"name": "Ivysaur", "type": "Grass", "level": 16}'
-#
-# Test delete:
-#
-# curl -X DELETE "http://127.0.0.1:8000/pokemon/1"
+#      -d '{"name": "Pikachu", "type": "Banana", "level": 7}'
