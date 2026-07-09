@@ -74,32 +74,54 @@ def health_check():
 
 
 # This route returns all Pokemon.
-# It can also filter Pokemon by type using a query parameter.
+# It can also filter Pokemon by type or search by name using query parameters.
 #
-# Example:
+# Examples:
 # /pokemon
 # /pokemon?pokemon_type=Fire
+# /pokemon?pokemon_name=char
+# /pokemon?pokemon_type=Fire&pokemon_name=char
 
 @app.get("/pokemon", response_model=list[Pokemon])
-def get_all_pokemon(pokemon_type: str | None = None):
+def get_all_pokemon(
+    pokemon_type: str | None = None,
+    pokemon_name: str | None = None,
+):
 
-    # If no type is provided, return every Pokemon.
+    # Start with the full Pokemon list.
+    # Then we filter it step by step.
 
-    if pokemon_type is None:
-        return pokemon
+    results = pokemon
 
-    # If a type is provided, filter the list.
-    # lower() makes the search case-insensitive.
-    # This means "fire", "Fire", and "FIRE" all work.
+    # Filter by type if pokemon_type was provided.
 
-    filtered_pokemon = []
+    if pokemon_type is not None:
 
-    for single_pokemon in pokemon:
+        filtered_by_type = []
 
-        if single_pokemon.type.lower() == pokemon_type.lower():
-            filtered_pokemon.append(single_pokemon)
+        for single_pokemon in results:
 
-    return filtered_pokemon
+            if single_pokemon.type.lower() == pokemon_type.lower():
+                filtered_by_type.append(single_pokemon)
+
+        results = filtered_by_type
+
+    # Search by name if pokemon_name was provided.
+    # This uses "in" so partial searches work.
+    # Example: "char" will match "Charmander".
+
+    if pokemon_name is not None:
+
+        filtered_by_name = []
+
+        for single_pokemon in results:
+
+            if pokemon_name.lower() in single_pokemon.name.lower():
+                filtered_by_name.append(single_pokemon)
+
+        results = filtered_by_name
+
+    return results
 
 
 # This route returns one Pokemon by ID.
