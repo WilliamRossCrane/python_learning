@@ -1,4 +1,3 @@
-````markdown
 # Flask
 
 Flask is a Python framework used to build web apps and APIs.
@@ -176,4 +175,3 @@ Flask is especially good for learning:
 ## Notes
 
 This folder is for learning how Python can build web apps, APIs, forms, dashboards, and backend projects.
-````

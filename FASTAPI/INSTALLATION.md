@@ -1,4 +1,3 @@
-````markdown
 # FastAPI Installation
 
 This guide shows how to install and run a FastAPI project.
@@ -12,7 +11,6 @@ From the main repo:
 ```bash
 cd FASTAPI/01_Rest_API
 ```
-````
 
 ---
 

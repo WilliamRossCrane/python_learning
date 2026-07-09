@@ -1,4 +1,3 @@
-````markdown
 # FastAPI
 
 FastAPI is a Python framework used to build APIs.
@@ -33,7 +32,6 @@ app = FastAPI()
 def root():
     return {"message": "Hello, FastAPI!"}
 ```
-````
 
 When the user visits:
 

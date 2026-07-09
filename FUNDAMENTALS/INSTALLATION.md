@@ -1,4 +1,3 @@
-````markdown
 # Python Fundamentals Installation
 
 The Python Fundamentals projects only use basic Python files.
@@ -141,4 +140,3 @@ python3 main.py
 ```
 
 to run each project.
-````

@@ -1,4 +1,3 @@
-````markdown
 # Python Fundamentals
 
 This folder is for learning basic Python.
@@ -321,4 +320,3 @@ Fix it.
 Run it again.
 
 That is coding.
-````

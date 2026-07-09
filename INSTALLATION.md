@@ -1,4 +1,3 @@
-````markdown
 # Installation Guide
 
 This guide helps you set up the basic tools needed for this Python learning repo.
@@ -176,4 +175,3 @@ FUNDAMENTALS/INSTALLATION.md
 FLASK/INSTALLATION.md
 FASTAPI/INSTALLATION.md
 ```
-````

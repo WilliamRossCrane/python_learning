@@ -1,4 +1,3 @@
-````markdown
 # Flask Installation
 
 This guide shows how to install and run a Flask project.
@@ -186,4 +185,3 @@ Use a virtual environment for each Flask project.
 Use `pip install -r requirements.txt` when the project has a requirements file.
 
 Use `Control + C` to stop the server.
-````
