@@ -11,16 +11,107 @@ router = APIRouter(
 
 
 # This route returns a paginated list of Pokemon summaries.
-# limit controls how many results are returned.
-# offset controls where the list starts.
+# It can also search and filter Pokemon using query parameters.
+#
+# Examples:
+# /api/v2/pokemon
+# /api/v2/pokemon?name=char
+# /api/v2/pokemon?type=Fire
+# /api/v2/pokemon?region=Kanto
+# /api/v2/pokemon?generation=1
+# /api/v2/pokemon?type=Fire&region=Kanto
 
 @router.get("/pokemon", response_model=PokemonListResponse)
 def get_all_pokemon(
     limit: int = Query(default=20, ge=1, le=100),
     offset: int = Query(default=0, ge=0),
+    name: str | None = None,
+    pokemon_type: str | None = Query(default=None, alias="type"),
+    region: str | None = None,
+    generation: int | None = None,
+    is_legendary: bool | None = None,
 ):
 
-    paginated_pokemon = pokemon_list[offset: offset + limit]
+    # Start with the full Pokemon list.
+    # Then filter it step by step.
+
+    filtered_pokemon = pokemon_list
+
+    # Search by name.
+    # This is a partial search, so "char" matches "Charmander".
+
+    if name is not None:
+
+        name_results = []
+
+        for pokemon in filtered_pokemon:
+
+            if name.lower() in pokemon.name.lower():
+                name_results.append(pokemon)
+
+        filtered_pokemon = name_results
+
+    # Filter by type.
+    # This checks the Pokemon types list.
+    # Example: Bulbasaur has ["Grass", "Poison"].
+
+    if pokemon_type is not None:
+
+        type_results = []
+
+        for pokemon in filtered_pokemon:
+
+            for single_type in pokemon.types:
+
+                if single_type.lower() == pokemon_type.lower():
+                    type_results.append(pokemon)
+
+        filtered_pokemon = type_results
+
+    # Filter by region.
+
+    if region is not None:
+
+        region_results = []
+
+        for pokemon in filtered_pokemon:
+
+            if pokemon.region.lower() == region.lower():
+                region_results.append(pokemon)
+
+        filtered_pokemon = region_results
+
+    # Filter by generation.
+
+    if generation is not None:
+
+        generation_results = []
+
+        for pokemon in filtered_pokemon:
+
+            if pokemon.generation == generation:
+                generation_results.append(pokemon)
+
+        filtered_pokemon = generation_results
+
+    # Filter by legendary status.
+
+    if is_legendary is not None:
+
+        legendary_results = []
+
+        for pokemon in filtered_pokemon:
+
+            if pokemon.is_legendary == is_legendary:
+                legendary_results.append(pokemon)
+
+        filtered_pokemon = legendary_results
+
+    # Pagination happens after filtering.
+    # This means count shows the number of matching Pokemon,
+    # not just the total number in the full data list.
+
+    paginated_pokemon = filtered_pokemon[offset: offset + limit]
 
     results = []
 
@@ -37,7 +128,7 @@ def get_all_pokemon(
         results.append(pokemon_summary)
 
     return {
-        "count": len(pokemon_list),
+        "count": len(filtered_pokemon),
         "limit": limit,
         "offset": offset,
         "results": results,
