@@ -1,4 +1,3 @@
-```markdown
 # Python Learning Projects
 
 <table>
@@ -24,12 +23,12 @@ It is designed to show progress from small beginner programs to more structured 
 
 As a future Digital Solutions teacher, this repo is also a way to model how students can build skills over time:
 
-- start small
-- practise basic syntax
-- build confidence
-- move into frameworks
-- organise projects clearly
-- use Git commits to show progress
+* start small
+* practise basic syntax
+* build confidence
+* move into frameworks
+* organise projects clearly
+* use Git commits to show progress
 
 This repo is not about one giant project.
 
@@ -64,26 +63,26 @@ The `FUNDAMENTALS` folder is the starting point.
 
 It teaches basic Python using simple `main.py` files.
 
-No frameworks.  
-No servers.  
+No frameworks.
+No servers.
 No extra packages.
 
 Just Python.
 
 ### What It Teaches
 
-- `print()`
-- comments
-- variables
-- strings
-- numbers
-- input
-- if statements
-- lists
-- loops
-- dictionaries
-- functions
-- debugging
+* `print()`
+* comments
+* variables
+* strings
+* numbers
+* input
+* if statements
+* lists
+* loops
+* dictionaries
+* functions
+* debugging
 
 ### Why Start Here?
 
@@ -93,11 +92,11 @@ Fundamentals teaches how code works in the simplest way possible.
 
 ### Best For
 
-- complete beginners
-- Years 7–10 coding practice
-- syntax basics
-- small terminal programs
-- building confidence
+* complete beginners
+* Years 7–10 coding practice
+* syntax basics
+* small terminal programs
+* building confidence
 
 ---
 
@@ -109,14 +108,14 @@ Flask is a lightweight web framework.
 
 ### What It Teaches
 
-- routes
-- web pages
-- templates
-- forms
-- CRUD apps
-- databases
-- simple APIs
-- backend basics
+* routes
+* web pages
+* templates
+* forms
+* CRUD apps
+* databases
+* simple APIs
+* backend basics
 
 ### Why Use Flask?
 
@@ -126,17 +125,17 @@ It helps students see how Python can respond to web requests and display pages i
 
 ### Pros
 
-- beginner-friendly
-- simple to start
-- flexible
-- great for small projects
-- good for learning how websites work
+* beginner-friendly
+* simple to start
+* flexible
+* great for small projects
+* good for learning how websites work
 
 ### Cons
 
-- less structure than Django
-- bigger apps need more planning
-- you choose many tools yourself
+* less structure than Django
+* bigger apps need more planning
+* you choose many tools yourself
 
 ### Best For
 
@@ -152,14 +151,14 @@ FastAPI is a modern framework for building backend APIs.
 
 ### What It Teaches
 
-- REST APIs
-- JSON responses
-- API routes
-- path parameters
-- query parameters
-- request bodies
-- validation
-- automatic API docs
+* REST APIs
+* JSON responses
+* API routes
+* path parameters
+* query parameters
+* request bodies
+* validation
+* automatic API docs
 
 ### Why Use FastAPI?
 
@@ -169,18 +168,18 @@ Web apps, mobile apps, dashboards, and games often talk to APIs behind the scene
 
 ### Pros
 
-- modern
-- fast
-- clean syntax
-- automatic docs
-- great for APIs
-- good for backend learning
+* modern
+* fast
+* clean syntax
+* automatic docs
+* great for APIs
+* good for backend learning
 
 ### Cons
 
-- not focused on HTML pages
-- can feel different after Flask
-- works best once you understand basic APIs
+* not focused on HTML pages
+* can feel different after Flask
+* works best once you understand basic APIs
 
 ### Best For
 
@@ -196,12 +195,12 @@ Django is a larger Python web framework.
 
 ### What It Teaches
 
-- larger web apps
-- users and login systems
-- databases
-- admin panels
-- structured projects
-- full-stack web development
+* larger web apps
+* users and login systems
+* databases
+* admin panels
+* structured projects
+* full-stack web development
 
 ### Why Use Django?
 
@@ -211,17 +210,17 @@ It is useful when building bigger web apps that need structure from the start.
 
 ### Pros
 
-- lots built in
-- strong structure
-- good for larger projects
-- built-in admin panel
-- useful for database-heavy apps
+* lots built in
+* strong structure
+* good for larger projects
+* built-in admin panel
+* useful for database-heavy apps
 
 ### Cons
 
-- more to learn at the start
-- heavier than Flask
-- can feel too big for small projects
+* more to learn at the start
+* heavier than Flask
+* can feel too big for small projects
 
 ### Best For
 
@@ -250,4 +249,3 @@ Small beginner projects matter because they become the foundation for bigger app
 <p align="center">
   <strong>Code. Commit. Reflect. Improve.</strong>
 </p>
-```
