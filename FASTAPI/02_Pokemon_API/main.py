@@ -37,6 +37,16 @@ class PokemonCreate(BaseModel):
     level: int
 
 
+# This model is used when someone updates an existing Pokemon.
+# The user sends the new name, type, and level.
+# The ID stays the same because it comes from the URL.
+
+class PokemonUpdate(BaseModel):
+    name: str
+    type: str
+    level: int
+
+
 # This list is our temporary Pokemon data.
 # Each Pokemon uses the Pokemon model.
 
@@ -84,22 +94,15 @@ def get_pokemon_by_id(pokemon_id: int):
 
 
 # This route creates a new Pokemon.
-# POST means the user is sending data to the API.
-# status_code=201 means something new was created.
+# POST means the user is sending new data to the API.
 
 @app.post("/pokemon", response_model=Pokemon, status_code=status.HTTP_201_CREATED)
 def create_pokemon(new_pokemon: PokemonCreate):
-
-    # Create a new ID.
-    # If the list has Pokemon, add 1 to the last Pokemon ID.
-    # If the list is empty, start at 1.
 
     if pokemon:
         new_id = pokemon[-1].id + 1
     else:
         new_id = 1
-
-    # Create the new Pokemon using the Pokemon model.
 
     pokemon_to_add = Pokemon(
         id=new_id,
@@ -108,17 +111,49 @@ def create_pokemon(new_pokemon: PokemonCreate):
         level=new_pokemon.level,
     )
 
-    # Add the new Pokemon to the list.
-
     pokemon.append(pokemon_to_add)
-
-    # Return the new Pokemon.
 
     return pokemon_to_add
 
 
-# Test this POST route:
+# This route updates an existing Pokemon.
+# PUT means the user is replacing existing data.
+# The Pokemon ID comes from the URL.
+# The new Pokemon details come from the JSON body.
+
+@app.put("/pokemon/{pokemon_id}", response_model=Pokemon)
+def update_pokemon(pokemon_id: int, updated_pokemon: PokemonUpdate):
+
+    # enumerate() gives us both:
+    # - the position in the list
+    # - the Pokemon at that position
+
+    for index, single_pokemon in enumerate(pokemon):
+
+        if single_pokemon.id == pokemon_id:
+
+            pokemon_to_update = Pokemon(
+                id=pokemon_id,
+                name=updated_pokemon.name,
+                type=updated_pokemon.type,
+                level=updated_pokemon.level,
+            )
+
+            pokemon[index] = pokemon_to_update
+
+            return pokemon_to_update
+
+    raise HTTPException(status_code=404, detail="Pokemon not found")
+
+
+# Test the create route:
 #
 # curl -X POST "http://127.0.0.1:8000/pokemon" \
 #      -H "Content-Type: application/json" \
 #      -d '{"name": "Pikachu", "type": "Electric", "level": 7}'
+#
+# Test the update route:
+#
+# curl -X PUT "http://127.0.0.1:8000/pokemon/4" \
+#      -H "Content-Type: application/json" \
+#      -d '{"name": "Raichu", "type": "Electric", "level": 22}'
