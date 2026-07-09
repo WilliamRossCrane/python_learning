@@ -3,7 +3,7 @@
 # The goal is to learn how APIs return data.
 
 from fastapi import FastAPI, HTTPException, status
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 # Create the FastAPI app.
@@ -22,9 +22,9 @@ app = FastAPI(
 
 class Pokemon(BaseModel):
     id: int
-    name: str
-    type: str
-    level: int
+    name: str = Field(..., min_length=1, max_length=30)
+    type: str = Field(..., min_length=3, max_length=20)
+    level: int = Field(..., ge=1, le=100)
 
 
 # This model is used when someone creates a new Pokemon.
@@ -32,9 +32,9 @@ class Pokemon(BaseModel):
 # The API will create the ID automatically.
 
 class PokemonCreate(BaseModel):
-    name: str
-    type: str
-    level: int
+    name: str = Field(..., min_length=1, max_length=30)
+    type: str = Field(..., min_length=3, max_length=20)
+    level: int = Field(..., ge=1, le=100)
 
 
 # This model is used when someone updates an existing Pokemon.
@@ -42,9 +42,9 @@ class PokemonCreate(BaseModel):
 # The ID stays the same because it comes from the URL.
 
 class PokemonUpdate(BaseModel):
-    name: str
-    type: str
-    level: int
+    name: str = Field(..., min_length=1, max_length=30)
+    type: str = Field(..., min_length=3, max_length=20)
+    level: int = Field(..., ge=1, le=100)
 
 
 # This list is our temporary Pokemon data.
