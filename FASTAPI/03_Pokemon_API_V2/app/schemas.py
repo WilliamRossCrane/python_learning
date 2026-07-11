@@ -100,3 +100,10 @@ class PokemonSpriteResponse(BaseModel):
     name: str
     slug: str
     sprites: PokemonSprites
+
+class PokemonStatsResponse(BaseModel):
+    dex_number: int
+    name: str
+    slug: str
+    stats: PokemonStats
+    base_stat_total: int

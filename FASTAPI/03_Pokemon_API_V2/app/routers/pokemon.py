@@ -5,9 +5,9 @@ from app.schemas import (
     Pokemon,
     PokemonListResponse,
     PokemonSpriteResponse,
+    PokemonStatsResponse,
     PokemonSummary,
 )
-
 
 router = APIRouter(
     prefix="/api/v2",
@@ -148,6 +148,34 @@ def get_pokemon_sprites(pokemon_identifier: str):
         "sprites": pokemon.sprites,
     }
 
+# This route returns only stat data for one Pokemon.
+# It also calculates the base stat total.
+# This is useful for apps that compare Pokemon strength.
+
+@router.get("/pokemon/{pokemon_identifier}/stats", response_model=PokemonStatsResponse)
+def get_pokemon_stats(pokemon_identifier: str):
+
+    pokemon = find_pokemon_by_identifier(pokemon_identifier)
+
+    if pokemon is None:
+        raise HTTPException(status_code=404, detail="Pokemon not found")
+
+    base_stat_total = (
+        pokemon.stats.hp
+        + pokemon.stats.attack
+        + pokemon.stats.defense
+        + pokemon.stats.special_attack
+        + pokemon.stats.special_defense
+        + pokemon.stats.speed
+    )
+
+    return {
+        "dex_number": pokemon.dex_number,
+        "name": pokemon.name,
+        "slug": pokemon.slug,
+        "stats": pokemon.stats,
+        "base_stat_total": base_stat_total,
+    }
 
 # This route returns the full data for one Pokemon.
 # The user can search by dex number or slug.
