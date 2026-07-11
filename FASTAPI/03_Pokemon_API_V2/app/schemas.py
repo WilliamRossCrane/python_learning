@@ -94,3 +94,9 @@ class GenerationDetailResponse(BaseModel):
     generation: int
     pokemon_count: int
     pokemon: list[PokemonSummary]
+
+class PokemonSpriteResponse(BaseModel):
+    dex_number: int
+    name: str
+    slug: str
+    sprites: PokemonSprites
