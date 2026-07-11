@@ -109,3 +109,12 @@ class PokemonStatsResponse(BaseModel):
     slug: str
     stats: PokemonStats
     base_stat_total: int
+
+class APIStatsResponse(BaseModel):
+    total_pokemon: int
+    total_types: int
+    total_regions: int
+    total_abilities: int
+    total_generations: int
+    legendary_count: int
+    mythical_count: int

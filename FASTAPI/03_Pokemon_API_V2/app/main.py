@@ -1,7 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import abilities, generations, pokemon, pokemon_types, regions
+from app.routers import (
+    abilities,
+    api_stats,
+    generations,
+    pokemon,
+    pokemon_types,
+    regions,
+)
 
 
 app = FastAPI(
@@ -24,11 +31,14 @@ app.add_middleware(
 )
 
 
+# Routers keep the API organised by resource.
+
 app.include_router(pokemon.router)
 app.include_router(pokemon_types.router)
 app.include_router(regions.router)
 app.include_router(abilities.router)
 app.include_router(generations.router)
+app.include_router(api_stats.router)
 
 
 @app.get("/")
@@ -49,8 +59,10 @@ def api_info():
         "docs": "/docs",
         "health": "/health",
         "endpoints": {
+            "api_stats": "/api/v2/stats",
             "pokemon": "/api/v2/pokemon",
             "pokemon_detail": "/api/v2/pokemon/{pokemon_identifier}",
+            "pokemon_random": "/api/v2/pokemon/random",
             "pokemon_sprites": "/api/v2/pokemon/{pokemon_identifier}/sprites",
             "pokemon_stats": "/api/v2/pokemon/{pokemon_identifier}/stats",
             "types": "/api/v2/types",
@@ -63,14 +75,21 @@ def api_info():
             "generation_detail": "/api/v2/generations/{generation_number}",
         },
         "example_requests": [
+            "/api/v2",
+            "/api/v2/stats",
             "/api/v2/pokemon",
             "/api/v2/pokemon?limit=20&offset=0",
             "/api/v2/pokemon?name=pika",
             "/api/v2/pokemon?type=Electric",
+            "/api/v2/pokemon/random",
             "/api/v2/pokemon/pikachu",
             "/api/v2/pokemon/25",
             "/api/v2/pokemon/pikachu/sprites",
             "/api/v2/pokemon/pikachu/stats",
+            "/api/v2/types/electric",
+            "/api/v2/regions/kanto",
+            "/api/v2/abilities/static",
+            "/api/v2/generations/1",
         ],
     }
 
