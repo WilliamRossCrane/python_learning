@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.routers import abilities, pokemon, pokemon_types, regions
+from app.routers import abilities, generations, pokemon, pokemon_types, regions
 
 
 app = FastAPI(
@@ -14,6 +14,7 @@ app.include_router(pokemon.router)
 app.include_router(pokemon_types.router)
 app.include_router(regions.router)
 app.include_router(abilities.router)
+app.include_router(generations.router)
 
 
 @app.get("/")
@@ -25,6 +26,7 @@ def root():
         "types": "/api/v2/types",
         "regions": "/api/v2/regions",
         "abilities": "/api/v2/abilities",
+        "generations": "/api/v2/generations",
     }
 
 

@@ -84,3 +84,13 @@ class AbilityDetailResponse(BaseModel):
     name: str
     pokemon_count: int
     pokemon: list[PokemonSummary]
+
+class GenerationListResponse(BaseModel):
+    count: int
+    results: list[int]
+
+
+class GenerationDetailResponse(BaseModel):
+    generation: int
+    pokemon_count: int
+    pokemon: list[PokemonSummary]
