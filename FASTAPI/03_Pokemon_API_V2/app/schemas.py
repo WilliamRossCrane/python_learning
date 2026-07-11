@@ -74,3 +74,13 @@ class RegionDetailResponse(BaseModel):
     name: str
     pokemon_count: int
     pokemon: list[PokemonSummary]
+
+class AbilityListResponse(BaseModel):
+    count: int
+    results: list[str]
+
+
+class AbilityDetailResponse(BaseModel):
+    name: str
+    pokemon_count: int
+    pokemon: list[PokemonSummary]
