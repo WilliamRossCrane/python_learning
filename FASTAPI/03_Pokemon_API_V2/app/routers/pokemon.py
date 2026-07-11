@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Request
 
 from app.data.pokemon_data import pokemon_list
 from app.schemas import (
@@ -8,6 +8,7 @@ from app.schemas import (
     PokemonStatsResponse,
     PokemonSummary,
 )
+
 
 router = APIRouter(
     prefix="/api/v2",
@@ -35,9 +36,19 @@ def find_pokemon_by_identifier(pokemon_identifier: str) -> Pokemon | None:
 
 # This route returns a paginated list of Pokemon summaries.
 # It can also search and filter Pokemon using query parameters.
+#
+# Examples:
+# /api/v2/pokemon
+# /api/v2/pokemon?limit=20&offset=0
+# /api/v2/pokemon?name=char
+# /api/v2/pokemon?type=Fire
+# /api/v2/pokemon?region=Kanto
+# /api/v2/pokemon?generation=1
+# /api/v2/pokemon?is_legendary=true
 
 @router.get("/pokemon", response_model=PokemonListResponse)
 def get_all_pokemon(
+    request: Request,
     limit: int = Query(default=20, ge=1, le=100),
     offset: int = Query(default=0, ge=0),
     name: str | None = None,
@@ -106,6 +117,8 @@ def get_all_pokemon(
 
         filtered_pokemon = legendary_results
 
+    total_count = len(filtered_pokemon)
+
     paginated_pokemon = filtered_pokemon[offset: offset + limit]
 
     results = []
@@ -122,8 +135,31 @@ def get_all_pokemon(
 
         results.append(pokemon_summary)
 
+    next_url = None
+    previous_url = None
+
+    if offset + limit < total_count:
+        next_url = str(
+            request.url.include_query_params(
+                limit=limit,
+                offset=offset + limit,
+            )
+        )
+
+    if offset > 0:
+        previous_offset = max(offset - limit, 0)
+
+        previous_url = str(
+            request.url.include_query_params(
+                limit=limit,
+                offset=previous_offset,
+            )
+        )
+
     return {
-        "count": len(filtered_pokemon),
+        "count": total_count,
+        "next": next_url,
+        "previous": previous_url,
         "limit": limit,
         "offset": offset,
         "results": results,
@@ -147,6 +183,7 @@ def get_pokemon_sprites(pokemon_identifier: str):
         "slug": pokemon.slug,
         "sprites": pokemon.sprites,
     }
+
 
 # This route returns only stat data for one Pokemon.
 # It also calculates the base stat total.
@@ -176,6 +213,7 @@ def get_pokemon_stats(pokemon_identifier: str):
         "stats": pokemon.stats,
         "base_stat_total": base_stat_total,
     }
+
 
 # This route returns the full data for one Pokemon.
 # The user can search by dex number or slug.

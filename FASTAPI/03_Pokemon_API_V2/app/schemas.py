@@ -51,6 +51,8 @@ class PokemonSummary(BaseModel):
 
 class PokemonListResponse(BaseModel):
     count: int
+    next: str | None = None
+    previous: str | None = None
     limit: int
     offset: int
     results: list[PokemonSummary]
