@@ -64,3 +64,13 @@ class PokemonTypeDetailResponse(BaseModel):
     name: str
     pokemon_count: int
     pokemon: list[PokemonSummary]
+
+class RegionListResponse(BaseModel):
+    count: int
+    results: list[str]
+
+
+class RegionDetailResponse(BaseModel):
+    name: str
+    pokemon_count: int
+    pokemon: list[PokemonSummary]
