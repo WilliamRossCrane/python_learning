@@ -1,3 +1,4 @@
+import argparse
 import json
 import time
 from pathlib import Path
@@ -10,10 +11,6 @@ import requests
 # We run it manually when we want to refresh our local data.
 
 API_BASE_URL = "https://pokeapi.co/api/v2"
-
-# Start with Kanto 151 for testing.
-# Later, change this to a bigger number for more Pokemon.
-POKEMON_LIMIT = 151
 
 # Where our cleaned Pokemon data will be saved.
 OUTPUT_FILE = Path(__file__).resolve().parents[1] / "app" / "data" / "pokemon.json"
@@ -57,6 +54,7 @@ def format_name(name: str) -> str:
 
 def get_stat_value(stats: list[dict], stat_name: str) -> int:
     for stat in stats:
+
         if stat["stat"]["name"] == stat_name:
             return stat["base_stat"]
 
@@ -107,8 +105,14 @@ def clean_pokemon_data(pokemon_details: dict, species_details: dict) -> dict:
             "hp": get_stat_value(pokemon_details["stats"], "hp"),
             "attack": get_stat_value(pokemon_details["stats"], "attack"),
             "defense": get_stat_value(pokemon_details["stats"], "defense"),
-            "special_attack": get_stat_value(pokemon_details["stats"], "special-attack"),
-            "special_defense": get_stat_value(pokemon_details["stats"], "special-defense"),
+            "special_attack": get_stat_value(
+                pokemon_details["stats"],
+                "special-attack",
+            ),
+            "special_defense": get_stat_value(
+                pokemon_details["stats"],
+                "special-defense",
+            ),
             "speed": get_stat_value(pokemon_details["stats"], "speed"),
         },
         "sprites": {
@@ -121,12 +125,12 @@ def clean_pokemon_data(pokemon_details: dict, species_details: dict) -> dict:
     }
 
 
-def seed_pokemon() -> None:
-    print(f"Seeding the first {POKEMON_LIMIT} Pokemon...")
+def seed_pokemon(limit: int) -> None:
+    print(f"Seeding the first {limit} Pokemon...")
 
     pokemon_data = []
 
-    for pokemon_id in range(1, POKEMON_LIMIT + 1):
+    for pokemon_id in range(1, limit + 1):
         print(f"Fetching Pokemon {pokemon_id}...")
 
         pokemon_details = get_json(f"{API_BASE_URL}/pokemon/{pokemon_id}")
@@ -148,5 +152,22 @@ def seed_pokemon() -> None:
     print(OUTPUT_FILE)
 
 
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Seed local Pokemon data from PokeAPI."
+    )
+
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=151,
+        help="How many Pokemon to seed. Default is 151.",
+    )
+
+    args = parser.parse_args()
+
+    seed_pokemon(limit=args.limit)
+
+
 if __name__ == "__main__":
-    seed_pokemon()
+    main()
