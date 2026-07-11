@@ -10,12 +10,9 @@ router = APIRouter(
 )
 
 
-# This route returns summary information about the whole API dataset.
-# It is useful for apps that want a quick overview of the data.
-
+# This route gives a quick overview of the whole dataset.
 @router.get("/stats", response_model=APIStatsResponse)
 def get_api_stats():
-
     types = []
     regions = []
     abilities = []
@@ -25,9 +22,7 @@ def get_api_stats():
     mythical_count = 0
 
     for pokemon in pokemon_list:
-
         for single_type in pokemon.types:
-
             if single_type not in types:
                 types.append(single_type)
 
@@ -35,7 +30,6 @@ def get_api_stats():
             regions.append(pokemon.region)
 
         for ability in pokemon.abilities:
-
             if ability not in abilities:
                 abilities.append(ability)
 

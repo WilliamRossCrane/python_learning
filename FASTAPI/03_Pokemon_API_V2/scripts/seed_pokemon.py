@@ -6,13 +6,15 @@ from pathlib import Path
 import requests
 
 
-# This script gets Pokemon data from PokeAPI and saves it locally.
-# It does not run every time the API starts.
-# We run it manually when we want to refresh our local data.
+# This script collects Pokemon data from PokéAPI and saves it locally.
+# Seeding means filling the local JSON file with starter data.
+# We save the cleaned data to JSON so the API can read it quickly.
+# The API uses this local file instead of calling PokéAPI every request.
+# That makes the learning project faster and more reliable.
 
 API_BASE_URL = "https://pokeapi.co/api/v2"
 
-# Where our cleaned Pokemon data will be saved.
+# This is the file that stores the cleaned Pokemon data.
 OUTPUT_FILE = Path(__file__).resolve().parents[1] / "app" / "data" / "pokemon.json"
 
 
@@ -54,7 +56,6 @@ def format_name(name: str) -> str:
 
 def get_stat_value(stats: list[dict], stat_name: str) -> int:
     for stat in stats:
-
         if stat["stat"]["name"] == stat_name:
             return stat["base_stat"]
 
@@ -137,10 +138,9 @@ def seed_pokemon(limit: int) -> None:
         species_details = get_json(f"{API_BASE_URL}/pokemon-species/{pokemon_id}")
 
         cleaned_pokemon = clean_pokemon_data(pokemon_details, species_details)
-
         pokemon_data.append(cleaned_pokemon)
 
-        # Small pause so we are polite to the external API.
+        # A short pause keeps us polite to the online API.
         time.sleep(0.05)
 
     OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)

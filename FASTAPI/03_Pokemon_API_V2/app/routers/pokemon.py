@@ -18,15 +18,10 @@ router = APIRouter(
 )
 
 
-# This helper function finds one Pokemon by dex number or slug.
-# Example:
-# 1 = Bulbasaur
-# bulbasaur = Bulbasaur
-
+# This helper can find one Pokemon by its dex number or its slug.
+# Example: 25 or pikachu both work.
 def find_pokemon_by_identifier(pokemon_identifier: str) -> Pokemon | None:
-
     for pokemon in pokemon_list:
-
         if str(pokemon.dex_number) == pokemon_identifier:
             return pokemon
 
@@ -36,18 +31,7 @@ def find_pokemon_by_identifier(pokemon_identifier: str) -> Pokemon | None:
     return None
 
 
-# This route returns a paginated list of Pokemon summaries.
-# It can also search and filter Pokemon using query parameters.
-#
-# Examples:
-# /api/v2/pokemon
-# /api/v2/pokemon?limit=20&offset=0
-# /api/v2/pokemon?name=char
-# /api/v2/pokemon?type=Fire
-# /api/v2/pokemon?region=Kanto
-# /api/v2/pokemon?generation=1
-# /api/v2/pokemon?is_legendary=true
-
+# This route returns a list of Pokemon with optional filters and pagination.
 @router.get("/pokemon", response_model=PokemonListResponse)
 def get_all_pokemon(
     request: Request,
@@ -59,74 +43,60 @@ def get_all_pokemon(
     generation: int | None = None,
     is_legendary: bool | None = None,
 ):
-
     filtered_pokemon = pokemon_list
 
     if name is not None:
-
         name_results = []
 
         for pokemon in filtered_pokemon:
-
             if name.lower() in pokemon.name.lower():
                 name_results.append(pokemon)
 
         filtered_pokemon = name_results
 
     if pokemon_type is not None:
-
         type_results = []
 
         for pokemon in filtered_pokemon:
-
             for single_type in pokemon.types:
-
                 if single_type.lower() == pokemon_type.lower():
                     type_results.append(pokemon)
 
         filtered_pokemon = type_results
 
     if region is not None:
-
         region_results = []
 
         for pokemon in filtered_pokemon:
-
             if pokemon.region.lower() == region.lower():
                 region_results.append(pokemon)
 
         filtered_pokemon = region_results
 
     if generation is not None:
-
         generation_results = []
 
         for pokemon in filtered_pokemon:
-
             if pokemon.generation == generation:
                 generation_results.append(pokemon)
 
         filtered_pokemon = generation_results
 
     if is_legendary is not None:
-
         legendary_results = []
 
         for pokemon in filtered_pokemon:
-
             if pokemon.is_legendary == is_legendary:
                 legendary_results.append(pokemon)
 
         filtered_pokemon = legendary_results
 
     total_count = len(filtered_pokemon)
-
-    paginated_pokemon = filtered_pokemon[offset: offset + limit]
+    paginated_pokemon = filtered_pokemon[offset : offset + limit]
 
     results = []
 
     for pokemon in paginated_pokemon:
-
         pokemon_summary = PokemonSummary(
             dex_number=pokemon.dex_number,
             name=pokemon.name,
@@ -134,7 +104,6 @@ def get_all_pokemon(
             types=pokemon.types,
             detail_url=f"/api/v2/pokemon/{pokemon.slug}",
         )
-
         results.append(pokemon_summary)
 
     next_url = None
@@ -168,12 +137,9 @@ def get_all_pokemon(
     }
 
 
-# This route returns one random Pokemon.
-# This is useful for apps that want to show a random featured Pokemon.
-
+# This route returns one random Pokemon for a fun demo.
 @router.get("/pokemon/random", response_model=Pokemon)
 def get_random_pokemon():
-
     if len(pokemon_list) == 0:
         raise HTTPException(status_code=404, detail="No Pokemon data found")
 
@@ -182,12 +148,9 @@ def get_random_pokemon():
     return random_pokemon
 
 
-# This route returns only sprite data for one Pokemon.
-# This is useful for apps that only need image URLs.
-
+# This route returns only the sprite links for one Pokemon.
 @router.get("/pokemon/{pokemon_identifier}/sprites", response_model=PokemonSpriteResponse)
 def get_pokemon_sprites(pokemon_identifier: str):
-
     pokemon = find_pokemon_by_identifier(pokemon_identifier)
 
     if pokemon is None:
@@ -201,13 +164,9 @@ def get_pokemon_sprites(pokemon_identifier: str):
     }
 
 
-# This route returns only stat data for one Pokemon.
-# It also calculates the base stat total.
-# This is useful for apps that compare Pokemon strength.
-
+# This route returns the base stats for one Pokemon.
 @router.get("/pokemon/{pokemon_identifier}/stats", response_model=PokemonStatsResponse)
 def get_pokemon_stats(pokemon_identifier: str):
-
     pokemon = find_pokemon_by_identifier(pokemon_identifier)
 
     if pokemon is None:
@@ -231,12 +190,9 @@ def get_pokemon_stats(pokemon_identifier: str):
     }
 
 
-# This route returns the full data for one Pokemon.
-# The user can search by dex number or slug.
-
+# This route returns the full details for one Pokemon.
 @router.get("/pokemon/{pokemon_identifier}", response_model=Pokemon)
 def get_pokemon(pokemon_identifier: str):
-
     pokemon = find_pokemon_by_identifier(pokemon_identifier)
 
     if pokemon is None:

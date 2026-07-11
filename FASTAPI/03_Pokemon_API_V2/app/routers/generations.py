@@ -14,16 +14,12 @@ router = APIRouter(
 )
 
 
-# This route returns all generations currently used in the API.
-# It builds the list from the Pokemon data.
-
+# This route returns every generation that appears in the data.
 @router.get("/generations", response_model=GenerationListResponse)
 def get_all_generations():
-
     generations = []
 
     for pokemon in pokemon_list:
-
         if pokemon.generation not in generations:
             generations.append(pokemon.generation)
 
@@ -36,21 +32,12 @@ def get_all_generations():
 
 
 # This route returns all Pokemon from one generation.
-#
-# Examples:
-# /api/v2/generations/1
-# /api/v2/generations/2
-# /api/v2/generations/3
-
 @router.get("/generations/{generation_number}", response_model=GenerationDetailResponse)
 def get_generation_details(generation_number: int):
-
     matching_pokemon = []
 
     for pokemon in pokemon_list:
-
         if pokemon.generation == generation_number:
-
             pokemon_summary = PokemonSummary(
                 dex_number=pokemon.dex_number,
                 name=pokemon.name,

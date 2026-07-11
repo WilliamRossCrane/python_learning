@@ -1,6 +1,10 @@
 from pydantic import BaseModel, Field
 
 
+# These models describe the data that the API returns.
+# They help FastAPI turn Python objects into JSON in a clear way.
+
+
 class PokemonStats(BaseModel):
     hp: int
     attack: int
@@ -34,10 +38,8 @@ class Pokemon(BaseModel):
     is_mythical: bool = False
 
 
-# This is the smaller version used in the list route.
-# Public APIs often return summaries first,
-# then users can request the full detail route if needed.
-
+# This smaller model is used for list views.
+# It gives a short summary instead of the full Pokemon details.
 class PokemonSummary(BaseModel):
     dex_number: int
     name: str
@@ -46,9 +48,7 @@ class PokemonSummary(BaseModel):
     detail_url: str
 
 
-# This is the full response shape for the list route.
-# It includes pagination information and a list of results.
-
+# This model describes the response for the main Pokemon list route.
 class PokemonListResponse(BaseModel):
     count: int
     next: str | None = None
@@ -56,6 +56,7 @@ class PokemonListResponse(BaseModel):
     limit: int
     offset: int
     results: list[PokemonSummary]
+
 
 class PokemonTypeListResponse(BaseModel):
     count: int
@@ -67,6 +68,7 @@ class PokemonTypeDetailResponse(BaseModel):
     pokemon_count: int
     pokemon: list[PokemonSummary]
 
+
 class RegionListResponse(BaseModel):
     count: int
     results: list[str]
@@ -76,6 +78,7 @@ class RegionDetailResponse(BaseModel):
     name: str
     pokemon_count: int
     pokemon: list[PokemonSummary]
+
 
 class AbilityListResponse(BaseModel):
     count: int
@@ -87,6 +90,7 @@ class AbilityDetailResponse(BaseModel):
     pokemon_count: int
     pokemon: list[PokemonSummary]
 
+
 class GenerationListResponse(BaseModel):
     count: int
     results: list[int]
@@ -97,11 +101,13 @@ class GenerationDetailResponse(BaseModel):
     pokemon_count: int
     pokemon: list[PokemonSummary]
 
+
 class PokemonSpriteResponse(BaseModel):
     dex_number: int
     name: str
     slug: str
     sprites: PokemonSprites
+
 
 class PokemonStatsResponse(BaseModel):
     dex_number: int
@@ -109,6 +115,7 @@ class PokemonStatsResponse(BaseModel):
     slug: str
     stats: PokemonStats
     base_stat_total: int
+
 
 class APIStatsResponse(BaseModel):
     total_pokemon: int

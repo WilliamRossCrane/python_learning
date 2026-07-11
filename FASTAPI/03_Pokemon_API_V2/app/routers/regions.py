@@ -14,16 +14,12 @@ router = APIRouter(
 )
 
 
-# This route returns all regions currently used in the API.
-# It builds the list from the Pokemon data.
-
+# This route returns every region that appears in the data.
 @router.get("/regions", response_model=RegionListResponse)
 def get_all_regions():
-
     regions = []
 
     for pokemon in pokemon_list:
-
         if pokemon.region not in regions:
             regions.append(pokemon.region)
 
@@ -36,22 +32,13 @@ def get_all_regions():
 
 
 # This route returns all Pokemon from one region.
-#
-# Examples:
-# /api/v2/regions/kanto
-# /api/v2/regions/johto
-# /api/v2/regions/hoenn
-
 @router.get("/regions/{region_name}", response_model=RegionDetailResponse)
 def get_region_details(region_name: str):
-
     matching_pokemon = []
     matched_region_name = None
 
     for pokemon in pokemon_list:
-
         if pokemon.region.lower() == region_name.lower():
-
             matched_region_name = pokemon.region
 
             pokemon_summary = PokemonSummary(

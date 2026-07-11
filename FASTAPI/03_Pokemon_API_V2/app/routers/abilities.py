@@ -14,26 +14,19 @@ router = APIRouter(
 )
 
 
-# This helper function turns text into a simple URL-friendly format.
-# Example:
-# "Solar Power" becomes "solar-power"
-
+# This helper turns a name into a simple URL-friendly format.
+# Example: "Solar Power" becomes "solar-power".
 def create_slug(text: str) -> str:
     return text.lower().replace(" ", "-")
 
 
-# This route returns all abilities currently used in the API.
-# It builds the list from the Pokemon data.
-
+# This route returns every ability that appears in the data.
 @router.get("/abilities", response_model=AbilityListResponse)
 def get_all_abilities():
-
     abilities = []
 
     for pokemon in pokemon_list:
-
         for ability in pokemon.abilities:
-
             if ability not in abilities:
                 abilities.append(ability)
 
@@ -45,25 +38,15 @@ def get_all_abilities():
     }
 
 
-# This route returns all Pokemon with one ability.
-#
-# Examples:
-# /api/v2/abilities/overgrow
-# /api/v2/abilities/blaze
-# /api/v2/abilities/solar-power
-
+# This route returns all Pokemon that have a matching ability.
 @router.get("/abilities/{ability_name}", response_model=AbilityDetailResponse)
 def get_ability_details(ability_name: str):
-
     matching_pokemon = []
     matched_ability_name = None
 
     for pokemon in pokemon_list:
-
         for ability in pokemon.abilities:
-
             if create_slug(ability) == create_slug(ability_name):
-
                 matched_ability_name = ability
 
                 pokemon_summary = PokemonSummary(

@@ -18,10 +18,8 @@ app = FastAPI(
 )
 
 
-# CORS allows frontend apps to connect to this API.
-# For learning, we allow all origins.
-# In a real deployed project, replace "*" with your frontend URL.
-
+# This allows browser-based apps to talk to the API.
+# For learning, the API allows all origins.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -31,8 +29,7 @@ app.add_middleware(
 )
 
 
-# Routers keep the API organised by resource.
-
+# Each router handles one part of the API.
 app.include_router(pokemon.router)
 app.include_router(pokemon_types.router)
 app.include_router(regions.router)

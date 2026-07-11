@@ -14,18 +14,13 @@ router = APIRouter(
 )
 
 
-# This route returns all Pokemon types currently used in the API.
-# It builds the list from the Pokemon data.
-
+# This route returns every type that appears in the data.
 @router.get("/types", response_model=PokemonTypeListResponse)
 def get_all_types():
-
     types = []
 
     for pokemon in pokemon_list:
-
         for single_type in pokemon.types:
-
             if single_type not in types:
                 types.append(single_type)
 
@@ -37,25 +32,15 @@ def get_all_types():
     }
 
 
-# This route returns all Pokemon that match one type.
-#
-# Examples:
-# /api/v2/types/fire
-# /api/v2/types/water
-# /api/v2/types/grass
-
+# This route returns all Pokemon that belong to one type.
 @router.get("/types/{type_name}", response_model=PokemonTypeDetailResponse)
 def get_type_details(type_name: str):
-
     matching_pokemon = []
     matched_type_name = None
 
     for pokemon in pokemon_list:
-
         for single_type in pokemon.types:
-
             if single_type.lower() == type_name.lower():
-
                 matched_type_name = single_type
 
                 pokemon_summary = PokemonSummary(
