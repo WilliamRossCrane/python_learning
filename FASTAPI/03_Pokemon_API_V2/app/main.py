@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.routers import abilities, generations, pokemon, pokemon_types, regions
 
@@ -7,6 +8,19 @@ app = FastAPI(
     title="Pokemon API V2",
     description="A structured Pokemon API inspired by PokéAPI for learning FastAPI.",
     version="2.0.0",
+)
+
+
+# CORS allows frontend apps to connect to this API.
+# For learning, we allow all origins.
+# In a real deployed project, replace "*" with your frontend URL.
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
