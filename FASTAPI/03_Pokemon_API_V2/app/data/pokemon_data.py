@@ -1,83 +1,27 @@
-from app.schemas import Pokemon, PokemonSprites, PokemonStats
+import json
+from pathlib import Path
+
+from app.schemas import Pokemon
 
 
-pokemon_list: list[Pokemon] = [
-    Pokemon(
-        id=1,
-        dex_number=1,
-        name="Bulbasaur",
-        slug="bulbasaur",
-        types=["Grass", "Poison"],
-        abilities=["Overgrow", "Chlorophyll"],
-        height_m=0.7,
-        weight_kg=6.9,
-        region="Kanto",
-        generation=1,
-        description="A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokemon.",
-        stats=PokemonStats(
-            hp=45,
-            attack=49,
-            defense=49,
-            special_attack=65,
-            special_defense=65,
-            speed=45,
-        ),
-        sprites=PokemonSprites(
-            front_default="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-            front_shiny="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png",
-            official_artwork="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-        ),
-    ),
-    Pokemon(
-        id=2,
-        dex_number=4,
-        name="Charmander",
-        slug="charmander",
-        types=["Fire"],
-        abilities=["Blaze", "Solar Power"],
-        height_m=0.6,
-        weight_kg=8.5,
-        region="Kanto",
-        generation=1,
-        description="The flame on its tail shows the strength of its life force.",
-        stats=PokemonStats(
-            hp=39,
-            attack=52,
-            defense=43,
-            special_attack=60,
-            special_defense=50,
-            speed=65,
-        ),
-        sprites=PokemonSprites(
-            front_default="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
-            front_shiny="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/4.png",
-            official_artwork="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
-        ),
-    ),
-    Pokemon(
-        id=3,
-        dex_number=7,
-        name="Squirtle",
-        slug="squirtle",
-        types=["Water"],
-        abilities=["Torrent", "Rain Dish"],
-        height_m=0.5,
-        weight_kg=9.0,
-        region="Kanto",
-        generation=1,
-        description="After birth, its back swells and hardens into a shell.",
-        stats=PokemonStats(
-            hp=44,
-            attack=48,
-            defense=65,
-            special_attack=50,
-            special_defense=64,
-            speed=43,
-        ),
-        sprites=PokemonSprites(
-            front_default="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
-            front_shiny="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/7.png",
-            official_artwork="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png",
-        ),
-    ),
-]
+# This file loads Pokemon data from pokemon.json.
+# The seed script creates pokemon.json.
+# The API then reads from that local file.
+
+DATA_FILE = Path(__file__).resolve().parent / "pokemon.json"
+
+
+def load_pokemon_data() -> list[Pokemon]:
+    with open(DATA_FILE, "r", encoding="utf-8") as file:
+        raw_pokemon_data = json.load(file)
+
+    pokemon_list = []
+
+    for single_pokemon in raw_pokemon_data:
+        pokemon = Pokemon(**single_pokemon)
+        pokemon_list.append(pokemon)
+
+    return pokemon_list
+
+
+pokemon_list: list[Pokemon] = load_pokemon_data()
