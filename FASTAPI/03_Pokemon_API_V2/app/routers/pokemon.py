@@ -1,3 +1,5 @@
+import random
+
 from fastapi import APIRouter, HTTPException, Query, Request
 
 from app.data.pokemon_data import pokemon_list
@@ -164,6 +166,20 @@ def get_all_pokemon(
         "offset": offset,
         "results": results,
     }
+
+
+# This route returns one random Pokemon.
+# This is useful for apps that want to show a random featured Pokemon.
+
+@router.get("/pokemon/random", response_model=Pokemon)
+def get_random_pokemon():
+
+    if len(pokemon_list) == 0:
+        raise HTTPException(status_code=404, detail="No Pokemon data found")
+
+    random_pokemon = random.choice(pokemon_list)
+
+    return random_pokemon
 
 
 # This route returns only sprite data for one Pokemon.
