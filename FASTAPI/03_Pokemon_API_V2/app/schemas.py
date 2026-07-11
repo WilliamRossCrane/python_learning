@@ -54,3 +54,13 @@ class PokemonListResponse(BaseModel):
     limit: int
     offset: int
     results: list[PokemonSummary]
+
+class PokemonTypeListResponse(BaseModel):
+    count: int
+    results: list[str]
+
+
+class PokemonTypeDetailResponse(BaseModel):
+    name: str
+    pokemon_count: int
+    pokemon: list[PokemonSummary]

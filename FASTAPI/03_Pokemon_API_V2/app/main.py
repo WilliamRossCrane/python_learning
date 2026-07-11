@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.routers import pokemon
+from app.routers import pokemon, pokemon_types
 
 
 app = FastAPI(
@@ -11,6 +11,7 @@ app = FastAPI(
 
 
 app.include_router(pokemon.router)
+app.include_router(pokemon_types.router)
 
 
 @app.get("/")
@@ -19,6 +20,7 @@ def root():
         "message": "Welcome to Pokemon API V2!",
         "docs": "/docs",
         "pokemon": "/api/v2/pokemon",
+        "types": "/api/v2/types",
     }
 
 
